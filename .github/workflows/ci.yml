@@ -39,7 +39,7 @@ jobs:
 
       - name: Login en DockerHub
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin https://index.docker.io/v1/
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin https://registry.hub.docker.com/v2/
 
       - name: Instalar dependencias y compilar
         run: |
