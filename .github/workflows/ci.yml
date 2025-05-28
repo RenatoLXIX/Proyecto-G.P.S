@@ -14,7 +14,7 @@ jobs:
           - Modulo Basica/backendBasica
           - Modulo Basica/frontEndBasica
           - Modulo Media/backendMedia
-          - Modulo Media/frontEndmedia
+          - Modulo Media/frontEndMedia
           - Modulo Parvularia/backendParvularia
           - Modulo Parvularia/frontEndParvularia
           - Modulo Sostenedor/backendSostenedor
