@@ -8,28 +8,58 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        servicio:
+          - Modulo Basica/backend-basica
+          - Modulo Basica/frontend-basica
+          - Modulo Media/backend-media
+          - Modulo Media/frontend-media
+          - Modulo Parvularia/backend-parvularia
+          - Modulo Parvularia/frontend-parvularia
+          - Modulo Sostenedor/backend-sostenedor
+          - Modulo Sostenedor/frontend-sostenedor
+
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v3
 
       - name: Configurar Java 21
+        if: contains(matrix.servicio, 'backend')
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Instalar dependencias y compilar
-        run: mvn install
-
-      - name: Ejecutar tests
-        run: mvn test
+      - name: Configurar Node.js
+        if: contains(matrix.servicio, 'frontend')
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
 
       - name: Login en DockerHub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      - name: Instalar dependencias y compilar
+        run: |
+          cd "${{ matrix.servicio }}"
+
+          if [[ "${{ matrix.servicio }}" == *backend* ]]; then
+            ./mvnw install
+            ./mvnw test
+          else
+            npm install
+            # npm run test --if-present  # Descomenta esta línea si quieres correr tests de Angular
+            npm run build -- --configuration production
+          fi
+
       - name: Construir imagen Docker
-        run: docker build -t miusuario/miapp:latest -t miusuario/miapp:${{ github.sha }} .
+        run: |
+          nombre=$(echo "${{ matrix.servicio }}" | sed 's|/|-|g' | tr '[:upper:]' '[:lower:]')
+          docker build -t miusuario/$nombre:latest -t miusuario/$nombre:${{ github.sha }} ${{ matrix.servicio }}
 
       - name: Subir imagen a DockerHub
         run: |
-          docker push miusuario/miapp:${{ github.sha }}
+          nombre=$(echo "${{ matrix.servicio }}" | sed 's|/|-|g' | tr '[:upper:]' '[:lower:]')
+          docker push miusuario/$nombre:latest
+          docker push miusuario/$nombre:${{ github.sha }}
