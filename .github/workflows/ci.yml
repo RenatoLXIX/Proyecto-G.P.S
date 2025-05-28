@@ -12,13 +12,13 @@ jobs:
       matrix:
         servicio:
           - Modulo Basica/backendBasica
-          - Modulo Basica/frontendBasica
+          - Modulo Basica/frontEndBasica
           - Modulo Media/backendMedia
-          - Modulo Media/frontendmedia
+          - Modulo Media/frontEndmedia
           - Modulo Parvularia/backendParvularia
-          - Modulo Parvularia/frontendParvularia
+          - Modulo Parvularia/frontEndParvularia
           - Modulo Sostenedor/backendSostenedor
-          - Modulo Sostenedor/frontendSostenedor
+          - Modulo Sostenedor/frontEndSostenedor
 
     steps:
       - name: Clonar repositorio
