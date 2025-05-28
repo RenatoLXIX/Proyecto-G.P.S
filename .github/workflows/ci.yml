@@ -44,6 +44,10 @@ jobs:
       - name: Verificar existencia de mvnw y entrar al directorio correcto
         run: |
           cd "${{ matrix.servicio }}"
+          if [ ! -d "$PWD" ]; then
+            echo "Directorio no existe en ${{ matrix.servicio }}"
+            exit 1
+          fi
           if [ ! -f "mvnw" ]; then
             echo "mvnw no encontrado en ${{ matrix.servicio }}"
             exit 1
