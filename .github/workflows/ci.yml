@@ -41,6 +41,18 @@ jobs:
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login --username "${{ secrets.DOCKER_USERNAME }}" --password-stdin https://registry.hub.docker.com/v2/
 
+      - name: Verificar existencia de mvnw y entrar al directorio correcto
+        run: |
+          cd "${{ matrix.servicio }}"
+          if [ ! -f "mvnw" ]; then
+            echo "mvnw no encontrado en ${{ matrix.servicio }}"
+            exit 1
+          fi
+  
+        # Configurar permisos para mvnw
+      - name: Configurar permisos para mvnw
+        run: chmod +x mvnw
+
       - name: Instalar dependencias y compilar
         run: |
           cd "${{ matrix.servicio }}"
@@ -50,8 +62,8 @@ jobs:
             ./mvnw test
           else
             npm install
-            # npm run test --if-present  # Descomenta esta línea si quieres correr tests de Angular
-            npm run build -- --configuration production
+            npm run test 
+            npm run build 
           fi
 
       - name: Construir imagen Docker
