@@ -1,0 +1,122 @@
+version: '3.8'
+
+services:
+  # Modulo Basica
+  backend-basica:
+    build:
+      context: ./Modulo/Basica/backendBasica/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: mysql://user:password@mysql-basica:3306/basica_db
+
+  frontend-basica:
+    build:
+      context: ./Modulo/Basica/frontEndBasica/
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend-basica
+    environment:
+      BACKEND_URL: http://backend-basica:8080
+
+  # Modulo Media
+  backend-media:
+    build:
+      context: ./Modulo/Media/backendMedia/
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      DATABASE_URL: mysql://user:password@mysql-media:3306/media_db
+
+  frontend-media:
+    build:
+      context: ./Modulo/Media/frontEndMedia/
+      dockerfile: Dockerfile
+    ports:
+      - "81:80"
+    depends_on:
+      - backend-media
+    environment:
+      BACKEND_URL: http://backend-media:8080
+
+  # Modulo Parvularia
+  backend-parvularia:
+    build:
+      context: ./Modulo/Parvularia/backendParvularia/
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      DATABASE_URL: mysql://user:password@mysql-parvularia:3306/parvularia_db
+
+  frontend-parvularia:
+    build:
+      context: ./Modulo/Parvularia/frontEndParvularia/
+      dockerfile: Dockerfile
+    ports:
+      - "82:80"
+    depends_on:
+      - backend-parvularia
+    environment:
+      BACKEND_URL: http://backend-parvularia:8080
+
+  # Modulo Sostenedor
+  backend-sostenedor:
+    build:
+      context: ./Modulo/Sostenedor/backendSostenedor/
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8080"
+    environment:
+      DATABASE_URL: mysql://user:password@mysql-sostenedor:3306/sostenedor_db
+
+  frontend-sostenedor:
+    build:
+      context: ./Modulo/Sostenedor/frontEndSostenedor/
+      dockerfile: Dockerfile
+    ports:
+      - "83:80"
+    depends_on:
+      - backend-sostenedor
+    environment:
+      BACKEND_URL: http://backend-sostenedor:8080
+
+  # MySQL Basica
+  mysql-basica:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: basica_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  # MySQL Media
+  mysql-media:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: media_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  # MySQL Parvularia
+  mysql-parvularia:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: parvularia_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+
+  # MySQL Sostenedor
+  mysql-sostenedor:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: sostenedor_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
