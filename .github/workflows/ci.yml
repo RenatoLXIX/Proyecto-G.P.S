@@ -53,11 +53,21 @@ jobs:
             echo "mvnw no encontrado en ${{ matrix.servicio }}"
             exit 1
           fi
+
+      - name: Verificar ruta de mvnw
+        if: contains(matrix.servicio, 'backend')
+        run: |
+          echo "Verificando ruta de mvnw..."
+          ls -la "${{ matrix.servicio }}"
+          if [ ! -f "${{ matrix.servicio }}/mvnw" ]; then
+            echo "mvnw no encontrado en ${{ matrix.servicio }}"
+            exit 1
+          fi
   
         # Configurar permisos para mvnw
       - name: Configurar permisos para mvnw
         if: contains(matrix.servicio, 'backend')
-        run: chmod +x mvnw
+        run: chmod +x "${{ matrix.servicio }}/mvnw"
 
       - name: Instalar dependencias y compilar
         run: |
