@@ -85,10 +85,10 @@ jobs:
       - name: Construir imagen Docker
         run: |
           nombre=$(echo "${{ matrix.servicio }}" | sed 's|/|-|g' | tr '[:upper:]' '[:lower:]')
-          docker build -t miusuario/$nombre:latest -t miusuario/$nombre:${{ github.sha }} ${{ matrix.servicio }}
-
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/$nombre:latest -t ${{ secrets.DOCKER_USERNAME }}/$nombre:${{ github.sha }} ${{ matrix.servicio }}
+  
       - name: Subir imagen a DockerHub
         run: |
           nombre=$(echo "${{ matrix.servicio }}" | sed 's|/|-|g' | tr '[:upper:]' '[:lower:]')
-          docker push miusuario/$nombre:latest
-          docker push miusuario/$nombre:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/$nombre:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/$nombre:${{ github.sha }}
