@@ -1,0 +1,48 @@
+name: Run Tests on PR
+
+on:
+  pull_request:
+    branches: [ main ]  # Solo se activa en PRs hacia main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        servicio:
+          - Modulo Basica/backendBasica
+          - Modulo Basica/frontEndBasica
+          - Modulo Media/backendMedia
+          - Modulo Media/frontEndMedia
+          - Modulo Parvularia/backendParvularia
+          - Modulo Parvularia/frontEndParvularia
+          - Modulo Sostenedor/backendSostenedor
+          - Modulo Sostenedor/frontEndSostenedor
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21 (Backend)
+        if: contains(matrix.servicio, 'backend')
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Set up Node.js (Frontend)
+        if: contains(matrix.servicio, 'frontEnd')
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Run Tests
+        run: |
+          cd "${{ matrix.servicio }}"
+          if [[ "${{ matrix.servicio }}" == *backend* ]]; then
+            ./mvnw install
+            ./mvnw test  
+          else
+            npm install
+            npm run test  
+          fi
