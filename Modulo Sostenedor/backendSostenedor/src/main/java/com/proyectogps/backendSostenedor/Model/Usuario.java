@@ -17,8 +17,8 @@ import jakarta.persistence.OneToMany;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_reporte")
-    private Integer idReporte;
+    @Column(name = "id_usuario")
+    private Integer idUsuario;
 
     @Column(name = "rut", nullable = false, length = 12)
     private String rut;
@@ -38,6 +38,8 @@ public class Usuario {
     @Column(name = "id_establecimiento", nullable = false)
     private Integer id_establecimiento;
 
+    
+
     //RELACIONES
 
     @OneToMany(mappedBy = "usuario")
@@ -48,14 +50,14 @@ public class Usuario {
     private Establecimiento establecimiento;
 
 
-
     // GETTERS AND SETTERS
-    public Integer getIdReporte() {
-        return idReporte;
+
+    public Integer getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setIdReporte(Integer idReporte) {
-        this.idReporte = idReporte;
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getRut() {
@@ -121,6 +123,10 @@ public class Usuario {
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
     }
+
+
+
+    
 
 
 
