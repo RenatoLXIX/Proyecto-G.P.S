@@ -10,6 +10,9 @@ services:
       - "8080:8080"
     environment:
       DATABASE_URL: mysql://user:password@mysql-basica:3306/basica_db
+    depends_on:
+      mysql-basica:
+        condition: service_healthy
 
   frontend-basica:
     build:
@@ -18,7 +21,8 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - backend-basica
+      backend-basica:
+        condition: service_healthy
     environment:
       BACKEND_URL: http://backend-basica:8080
 
@@ -31,6 +35,9 @@ services:
       - "8081:8080"
     environment:
       DATABASE_URL: mysql://user:password@mysql-media:3306/media_db
+    depends_on:
+      mysql-media:
+        condition: service_healthy
 
   frontend-media:
     build:
@@ -39,7 +46,8 @@ services:
     ports:
       - "81:80"
     depends_on:
-      - backend-media
+      backend-media:
+        condition: service_healthy
     environment:
       BACKEND_URL: http://backend-media:8080
 
@@ -52,6 +60,9 @@ services:
       - "8082:8080"
     environment:
       DATABASE_URL: mysql://user:password@mysql-parvularia:3306/parvularia_db
+    depends_on:
+      mysql-parvularia:
+        condition: service_healthy
 
   frontend-parvularia:
     build:
@@ -60,7 +71,8 @@ services:
     ports:
       - "82:80"
     depends_on:
-      - backend-parvularia
+      backend-parvularia:
+        condition: service_healthy
     environment:
       BACKEND_URL: http://backend-parvularia:8080
 
@@ -73,6 +85,9 @@ services:
       - "8083:8080"
     environment:
       DATABASE_URL: mysql://user:password@mysql-sostenedor:3306/sostenedor_db
+    depends_on:
+      mysql-sostenedor:
+        condition: service_healthy
 
   frontend-sostenedor:
     build:
@@ -81,13 +96,14 @@ services:
     ports:
       - "83:80"
     depends_on:
-      - backend-sostenedor
+      backend-sostenedor:
+        condition: service_healthy
     environment:
       BACKEND_URL: http://backend-sostenedor:8080
 
   # MySQL Basica
   mysql-basica:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: basica_db
@@ -96,7 +112,7 @@ services:
 
   # MySQL Media
   mysql-media:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: media_db
@@ -105,7 +121,7 @@ services:
 
   # MySQL Parvularia
   mysql-parvularia:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: parvularia_db
@@ -114,7 +130,7 @@ services:
 
   # MySQL Sostenedor
   mysql-sostenedor:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: sostenedor_db
