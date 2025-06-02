@@ -29,16 +29,12 @@ public class Planificacion {
     @Column(name = "objetivo", nullable = false, length = 200)
     private String objetivo;
 
-    @Column(name = "id_recurso", nullable = false)
-    private Integer idRecurso;
-
-    //Relaciones
-
+    // Relación con recurso
     @ManyToOne
     @JoinColumn(name = "id_recurso", referencedColumnName = "id_recurso")
     private Recurso recurso;
 
-    // Getters and Setters
+    // Getters y Setters
 
     public Integer getIdPlanificacion() {
         return idPlanificacion;
@@ -80,14 +76,6 @@ public class Planificacion {
         this.objetivo = objetivo;
     }
 
-    public Integer getIdRecurso() {
-        return idRecurso;
-    }
-
-    public void setIdRecurso(Integer idRecurso) {
-        this.idRecurso = idRecurso;
-    }
-
     public Recurso getRecurso() {
         return recurso;
     }
@@ -96,10 +84,8 @@ public class Planificacion {
         this.recurso = recurso;
     }
 
-    
-
-    
-
+    // (Opcional) Método auxiliar para obtener el id del recurso
+    public Integer getIdRecurso() {
+        return recurso != null ? recurso.getIdRecurso() : null;
+    }
 }
-
-

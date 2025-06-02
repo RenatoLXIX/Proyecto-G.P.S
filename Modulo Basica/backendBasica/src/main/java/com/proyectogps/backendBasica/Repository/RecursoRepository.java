@@ -6,9 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RecursoRepository extends JpaRepository<Recurso, Integer> {
-
-    // Ejemplos de métodos personalizados si los necesitas:
-    // List<Recurso> findByAsignatura(String asignatura);
-    // List<Recurso> findByTipo(String tipo);
 }
-

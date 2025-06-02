@@ -6,8 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MaterialComplementarioRepository extends JpaRepository<MaterialComplementario, Integer> {
-    
-    // Puedes agregar métodos personalizados aquí si los necesitas, por ejemplo:
-    // List<MaterialComplementario> findByAsignatura(String asignatura);
 }
-
