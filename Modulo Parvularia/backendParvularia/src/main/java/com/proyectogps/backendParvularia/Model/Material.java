@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-//@Table(name = "material")
+@Table(name = "material")
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,11 +44,12 @@ public class Material {
     //si no se utiliz MaterialCategoria, utilizar esta relacion
     @ManyToMany
     @JoinTable(
-        name = "Material_Categoria",
-        joinColumns = @JoinColumn(name = "id_material"),
-        inverseJoinColumns = @JoinColumn(name = "id_categoria")
+    name = "Material_Categoria",
+    joinColumns = @JoinColumn(name = "id_material"),
+    inverseJoinColumns = @JoinColumn(name = "id_categoriaOrganizativa")
     )
-    private List<CategoriaOrganizativa> categorias;
+    private List<CategoriaOrganizativa> categoriaOrganizativa;
+
 
 
 
@@ -95,7 +96,7 @@ public class Material {
     }
 
     public String getUrl() {
-        return url;
+        return this.url;
     }
 
     public void setUrl(String url) {
