@@ -38,7 +38,7 @@ public class Material {
        private List<Planificacion> planificacion;
 
     //@OneToMany(mappedBy = "material")
-       private List<MaterialCategoria> material_categoria;
+    //  private List<MaterialCategoria> material_categoria;
 
 
     //si no se utiliz MaterialCategoria, utilizar esta relacion
