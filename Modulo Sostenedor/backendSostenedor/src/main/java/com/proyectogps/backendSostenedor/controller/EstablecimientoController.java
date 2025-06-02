@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.controller;
+package controller;
 
 import com.proyectogps.backendSostenedor.DTO.InformeGeneralDTO;
 import com.proyectogps.backendSostenedor.service.EstablecimientoService;

@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.DTO;
+package DTO;
 
 public class InformeGeneralDTO {
     private String nombreEstablecimiento;

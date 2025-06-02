@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.controller;
+package controller;
 
 import java.util.List;
 

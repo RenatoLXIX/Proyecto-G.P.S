@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.Model;
+package Model;
 
 import jakarta.persistence.*;
 import java.util.List;

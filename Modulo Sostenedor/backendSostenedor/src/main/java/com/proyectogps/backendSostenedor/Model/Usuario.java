@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.Model;
+package Model;
 
 import java.sql.Date;
 import java.util.List;

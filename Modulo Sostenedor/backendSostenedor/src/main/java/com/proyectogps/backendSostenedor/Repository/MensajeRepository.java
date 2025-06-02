@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.Repository;
+package Repository;
 
 import com.proyectogps.backendSostenedor.Model.Mensaje;
 import org.springframework.data.jpa.repository.JpaRepository;

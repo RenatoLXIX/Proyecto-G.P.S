@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.Repository;
+package Repository;
 
 import java.util.List;
 
