@@ -44,7 +44,7 @@ public class Material {
 
     //RELACIONES CON OTRAS TABLAS
 
-    @OneToMany(mappedBy = "Material")
+    @OneToMany(mappedBy = "material")
     private List<Evaluacion> evaluacion;
 
 
@@ -92,7 +92,7 @@ public class Material {
 
 
     public String getAsignatura() {
-        return asignatura;
+        return this.asignatura;
     }
 
 

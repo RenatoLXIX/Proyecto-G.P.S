@@ -32,8 +32,7 @@ public class Evaluacion {
     @Column(name = "tiene_solucionario", nullable = false)
     private Boolean tiene_solucionario;
 
-    @Column(name = "id_material", nullable = false)
-    private Integer idMaterial;
+   
 
     //RELACIONES
 

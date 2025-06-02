@@ -29,7 +29,10 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+
 	<dependencies>
+		
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -55,6 +58,14 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+	<dependency>
+    	<groupId>mysql</groupId>
+    	<artifactId>mysql-connector-j</artifactId>
+    	<version>8.0.33</version> <!-- O la última -->
+	</dependency>
+
+
 	</dependencies>
 
 	<build>
