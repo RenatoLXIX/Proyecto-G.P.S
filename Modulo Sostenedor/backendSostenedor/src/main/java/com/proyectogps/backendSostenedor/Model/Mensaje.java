@@ -21,17 +21,14 @@ public class Mensaje {
     @Column(name = "asunto", nullable = false, length = 200)
     private String asunto;
 
-    @Column(name = "contenido", nullable = false, length = 200)
-    private Date contenido;
+    @Column(name = "contenido", nullable = false, length = 255)
+    private String contenido;
 
     @Column(name = "fecha_envio", nullable = false)
     private Date fecha_envio;
 
-    @Column(name = "remitente_id", nullable = false, length = 255)
+    @Column(name = "remitente_id", nullable = false)
     private int remitente_id;
-
-    @Column(name = "filtros", nullable = false, length = 50)
-    private String filtros;
 
 
     //RELACIONES
@@ -63,12 +60,12 @@ public class Mensaje {
      }
 
 
-     public Date getContenido() {
+     public String getContenido() {
          return contenido;
      }
 
 
-     public void setContenido(Date contenido) {
+     public void setContenido(String contenido) {
          this.contenido = contenido;
      }
 
@@ -90,16 +87,6 @@ public class Mensaje {
 
      public void setRemitente_id(int remitente_id) {
          this.remitente_id = remitente_id;
-     }
-
-
-     public String getFiltros() {
-         return filtros;
-     }
-
-
-     public void setFiltros(String filtros) {
-         this.filtros = filtros;
      }
 
 

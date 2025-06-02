@@ -1,8 +1,9 @@
 package com.proyectogps.backendSostenedor.Model;
 
 import jakarta.persistence.*;
-import java.util.Date;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 //@Table(name = "establecimiento")
@@ -25,10 +26,7 @@ public class Establecimiento {
     private String comuna;
 
     //RELACIONES
-
-    @OneToMany(mappedBy = "establecimiento")
-    private List<Reporte> reporte;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "establecimiento")
     private List<Usuario> usuario;
 
@@ -75,14 +73,6 @@ public class Establecimiento {
         this.comuna = comuna;
     }
 
-    public List<Reporte> getReporte() {
-        return reporte;
-    }
-
-    public void setReporte(List<Reporte> reporte) {
-        this.reporte = reporte;
-    }
-
     public List<Usuario> getUsuario() {
         return usuario;
     }
@@ -90,10 +80,5 @@ public class Establecimiento {
     public void setUsuario(List<Usuario> usuario) {
         this.usuario = usuario;
     }
-
-
-
-    
-
 
 }
