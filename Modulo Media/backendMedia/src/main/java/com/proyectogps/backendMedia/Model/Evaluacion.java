@@ -1,21 +1,14 @@
 package com.proyectogps.backendMedia.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.*;
 
 @Entity
-//@Table(name = "evaluacion")
+@Table(name = "evaluacion")
 public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_evaluacion")
-    private Integer idEvaluacion;
+    private int id_evaluacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -43,12 +36,12 @@ public class Evaluacion {
 
 
     //GETTERS Y SETTERS
-    public Integer getIdEvaluacion() {
-        return idEvaluacion;
+    public int getIdEvaluacion() {
+        return id_evaluacion;
     }
 
-    public void setIdEvaluacion(Integer idEvaluacion) {
-        this.idEvaluacion = idEvaluacion;
+    public void setId_evaluacion(int id_evaluacion) {
+        this.id_evaluacion = id_evaluacion;
     }
 
     public String getTipo() {
@@ -91,14 +84,6 @@ public class Evaluacion {
         this.tiene_solucionario = tiene_solucionario;
     }
 
-    public Integer getIdMaterial() {
-        return idMaterial;
-    }
-
-    public void setIdMaterial(Integer idMaterial) {
-        this.idMaterial = idMaterial;
-    }
-
     public Material getMaterial() {
         return material;
     }
@@ -106,7 +91,4 @@ public class Evaluacion {
     public void setMaterial(Material material) {
         this.material = material;
     }
-
-
-    
 }

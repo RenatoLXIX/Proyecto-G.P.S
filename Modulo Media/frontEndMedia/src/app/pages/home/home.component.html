@@ -1,0 +1,82 @@
+<div class="min-h-screen bg-gray-100">
+    <!-- Barra de navegación -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-semibold">Portal Educativo Media</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-700">Seleccionar Rol:</span>
+                        <select 
+                            class="user-type-selector"
+                            #selectUser
+                            [(ngModel)]="currentUserType"
+                            (change)="onChangeUserType(selectUser.value)">
+                            <option [value]="userTypes.ESTUDIANTE">Estudiante</option>
+                            <option [value]="userTypes.PROFESOR">Profesor</option>
+                            <option [value]="userTypes.ADMINISTRADOR">Administrador</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="max-w-7xl mx-auto py-6 px-4">
+        <div class="content-section">
+            <div class="role-indicator">
+                {{ currentUserType === userTypes.ESTUDIANTE ? 'Vista de Estudiante' :
+                   currentUserType === userTypes.PROFESOR ? 'Vista de Profesor' :
+                   'Vista de Administrador' }}
+            </div>
+
+            <!-- Contenido para Estudiantes -->
+            <div *ngIf="currentUserType === userTypes.ESTUDIANTE">
+                <h2 class="text-2xl font-bold mb-4">Panel de Estudiante</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-blue-50 rounded-lg">
+                        <h3 class="font-semibold">Mis Cursos</h3>
+                        <p class="text-gray-600">Accede a tus materias y contenidos</p>
+                    </div>
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <h3 class="font-semibold">Calificaciones</h3>
+                        <p class="text-gray-600">Consulta tus notas y progreso</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido para Profesores -->
+            <div *ngIf="currentUserType === userTypes.PROFESOR">
+                <h2 class="text-2xl font-bold mb-4">Panel de Profesor</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-purple-50 rounded-lg">
+                        <h3 class="font-semibold">Gestión de Cursos</h3>
+                        <p class="text-gray-600">Administra tus clases y materiales</p>
+                    </div>
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <h3 class="font-semibold">Evaluaciones</h3>
+                        <p class="text-gray-600">Gestiona calificaciones y exámenes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido para Administradores -->
+            <div *ngIf="currentUserType === userTypes.ADMINISTRADOR">
+                <h2 class="text-2xl font-bold mb-4">Panel de Administrador</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-red-50 rounded-lg">
+                        <h3 class="font-semibold">Gestión de Usuarios</h3>
+                        <p class="text-gray-600">Administra estudiantes y profesores</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h3 class="font-semibold">Configuración del Sistema</h3>
+                        <p class="text-gray-600">Ajusta parámetros y permisos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div> 
