@@ -11,12 +11,19 @@ RUN npm run build --prod
 
 FROM nginx:alpine
 
-ENV PORT 8080
+# Railway asignará un puerto dinámicamente
+ENV PORT=8080
 EXPOSE 8080
 
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=build /app/dist/front-end-media /usr/share/nginx/html
-COPY default.conf.template /etc/nginx/templates/default.conf.template
+COPY --from=build /app/dist/front-end-media/browser /usr/share/nginx/html
+COPY default.conf /etc/nginx/conf.d/default.conf
 
-CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+# Asegurarse de que nginx puede escribir en los directorios necesarios
+RUN chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d
+
+# CMD como root (por defecto)
+CMD ["nginx", "-g", "daemon off;"]
