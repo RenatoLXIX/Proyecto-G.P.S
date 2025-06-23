@@ -12,7 +12,7 @@ public class Planificacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_planificacion")
-    private int id_planificacion;
+    private int idPlanificacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -44,12 +44,12 @@ public class Planificacion {
     }
 
     // GETTERS Y SETTERS
-    public int getId_planificacion() {
-        return id_planificacion;
+    public int getIdPlanificacion() {
+        return idPlanificacion;
     }
 
-    public void setId_planificacion(int id_planificacion) {
-        this.id_planificacion = id_planificacion;
+    public void setIdPlanificacion(int idPlanificacion) {
+        this.idPlanificacion = idPlanificacion;
     }
 
     public String getTipo() {

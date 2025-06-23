@@ -48,9 +48,9 @@ public class MaterialService {
 
     public Material saveMaterial(Material material, MultipartFile file) {
         try {
-            if (material.isEs_online()) {
+            if (material.isEsOnline()) {
                 // Si es online, verificar que tenga una URL válida
-                if (material.getUrl_descarga() == null || material.getUrl_descarga().trim().isEmpty()) {
+                if (material.getUrlDescarga() == null || material.getUrlDescarga().trim().isEmpty()) {
                     throw new RuntimeException("Para materiales online se requiere una URL válida");
                 }
             } else {
@@ -59,7 +59,7 @@ public class MaterialService {
                     throw new RuntimeException("Para materiales no online se requiere un archivo");
                 }
                 String fileUrl = fileStorageService.storeFile(file);
-                material.setUrl_descarga(fileUrl);
+                material.setUrlDescarga(fileUrl);
             }
             material.setFechaModificacion(LocalDate.now());
             return repository.save(material);
@@ -75,17 +75,17 @@ public class MaterialService {
     public Material updateMaterial(int id, Material material, MultipartFile file) {
         if (repository.existsById(id)) {
             try {
-                if (material.isEs_online()) {
+                if (material.isEsOnline()) {
                     // Si es online, verificar que tenga una URL válida
-                    if (material.getUrl_descarga() == null || material.getUrl_descarga().trim().isEmpty()) {
+                    if (material.getUrlDescarga() == null || material.getUrlDescarga().trim().isEmpty()) {
                         throw new RuntimeException("Para materiales online se requiere una URL válida");
                     }
                 } else if (file != null && !file.isEmpty()) {
                     // Si no es online y se proporciona un archivo, actualizarlo
                     String fileUrl = fileStorageService.storeFile(file);
-                    material.setUrl_descarga(fileUrl);
+                    material.setUrlDescarga(fileUrl);
                 }
-                material.setId_material(id);
+                material.setIdMaterial(id);
                 material.setFechaModificacion(LocalDate.now());
                 return repository.save(material);
             } catch (Exception e) {

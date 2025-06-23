@@ -47,7 +47,7 @@ public class PlanificacionService {
 
     public Planificacion updatePlanificacion(int id, Planificacion planificacion) {
         if (repository.existsById(id)) {
-            planificacion.setId_planificacion(id);
+            planificacion.setIdPlanificacion(id);
             return repository.save(planificacion);
         }
         return null;

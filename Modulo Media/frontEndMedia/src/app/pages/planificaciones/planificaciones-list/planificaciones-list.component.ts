@@ -3,71 +3,93 @@ import { PlanificacionService } from '../../../services/planificacion.service';
 import { MaterialService } from '../../../services/material.service';
 import { Planificacion } from '../../../models/planificacion.interface';
 import { Material } from '../../../models/material.interface';
+import { Router } from '@angular/router';
+import { RoleService } from '../../../services/role.service';
+import { UserType } from '../../../models/user-type.model';
 
 @Component({
   selector: 'app-planificaciones-list',
   template: `
     <div class="container mx-auto p-4">
-      <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center space-x-4">
-          <a routerLink="/home" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
-            Volver al Inicio
-          </a>
-          <h2 class="text-2xl font-bold">Planificaciones</h2>
-        </div>
-        <a routerLink="nuevo" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-2xl font-bold">Planificaciones</h2>
+        <a routerLink="/home" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+          Volver al Inicio
+        </a>
+      </div>
+
+      <div class="mb-6">
+        <a *ngIf="canCreate()" routerLink="nuevo" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
           Nueva Planificación
         </a>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngIf="planificaciones.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div *ngFor="let planificacion of planificaciones" 
-             class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition-shadow">
-          <div class="flex justify-between items-start mb-2">
-            <div>
-              <h3 class="text-xl font-semibold">{{planificacion.tipo}}</h3>
+             class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100 min-h-[320px] flex flex-col">
+          <div class="flex-grow">
+            <div class="flex justify-between items-start mb-3">
+              <h3 class="text-xl font-bold text-gray-800">{{planificacion.tipo}}</h3>
+              <div class="flex gap-2">
+                <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">{{planificacion.nivel}}</span>
+                <span class="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">{{planificacion.asignatura}}</span>
+              </div>
             </div>
-            <div class="flex gap-2">
-              <span class="bg-green-100 text-green-800 text-sm px-2 py-1 rounded">{{planificacion.nivel}}</span>
-              <span class="bg-purple-100 text-purple-800 text-sm px-2 py-1 rounded">{{planificacion.asignatura}}</span>
+
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Objetivos:</h4>
+              <p class="text-gray-600 line-clamp-3">{{planificacion.objetivos}}</p>
+            </div>
+
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-700 mb-2">Materiales:</h4>
+              <div class="flex flex-wrap gap-2">
+                <span *ngFor="let materialId of planificacion.materiales || []" 
+                      class="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full font-medium">
+                  {{getMaterialTitulo(materialId)}}
+                </span>
+                <span *ngIf="!planificacion.materiales?.length" class="text-gray-500 text-sm">
+                  No hay materiales asignados
+                </span>
+              </div>
             </div>
           </div>
 
-          <div class="mt-4">
-            <h4 class="font-semibold text-gray-700">Objetivos:</h4>
-            <p class="text-gray-600">{{planificacion.objetivos}}</p>
-          </div>
-
-          <div class="mt-4">
-            <h4 class="font-semibold text-gray-700">Materiales:</h4>
-            <div class="flex flex-wrap gap-2">
-              <span *ngFor="let materialId of planificacion.materiales || []" 
-                    class="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded">
-                {{getMaterialTitulo(materialId)}}
+          <div class="mt-auto pt-4 border-t border-gray-100">
+            <div class="flex justify-between items-center">
+              <div class="space-x-2">
+                <button *ngIf="planificacion.idPlanificacion && canCreate()"
+                        (click)="editarPlanificacion(planificacion.idPlanificacion)" 
+                        class="text-yellow-600 hover:text-yellow-800 font-medium text-sm">
+                  Editar
+                </button>
+                <button *ngIf="planificacion.idPlanificacion && canCreate()"
+                        (click)="eliminarPlanificacion(planificacion.idPlanificacion)" 
+                        class="text-red-600 hover:text-red-800 font-medium text-sm">
+                  Eliminar
+                </button>
+              </div>
+              <span class="text-sm text-gray-500">
+                {{planificacion.fechaCreacion | date:'dd/MM/yyyy'}}
               </span>
-              <span *ngIf="!planificacion.materiales?.length" class="text-gray-500 text-sm">
-                No hay materiales asignados
-              </span>
             </div>
           </div>
+        </div>
+      </div>
 
-          <div class="flex justify-start items-center mt-6 space-x-4">
-            <div class="space-x-2">
-              <button *ngIf="planificacion.idPlanificacion"
-                      (click)="editarPlanificacion(planificacion.idPlanificacion)" 
-                      class="text-yellow-600 hover:text-yellow-800">
-                Editar
-              </button>
-              <button *ngIf="planificacion.idPlanificacion"
-                      (click)="eliminarPlanificacion(planificacion.idPlanificacion)" 
-                      class="text-red-600 hover:text-red-800">
-                Eliminar
-              </button>
-            </div>
-            <span class="text-sm text-gray-500">
-              Creado: {{planificacion.fechaCreacion | date:'dd/MM/yyyy'}}
-            </span>
-          </div>
+      <div *ngIf="planificaciones.length === 0" class="text-center py-12">
+        <div class="bg-gray-50 rounded-xl p-8 border-2 border-dashed border-gray-300">
+          <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">No hay planificaciones disponibles</h3>
+          <p class="text-gray-500 mb-4">Aún no se han creado planificaciones en esta sección.</p>
+          <a *ngIf="canCreate()" routerLink="nuevo" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+            </svg>
+            Crear primera planificación
+          </a>
         </div>
       </div>
     </div>
@@ -77,15 +99,25 @@ import { Material } from '../../../models/material.interface';
 export class PlanificacionesListComponent implements OnInit {
   planificaciones: Planificacion[] = [];
   materiales: Map<number, Material> = new Map();
+  userType?: UserType;
 
   constructor(
     private planificacionService: PlanificacionService,
-    private materialService: MaterialService
+    private materialService: MaterialService,
+    private roleService: RoleService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.cargarPlanificaciones();
     this.cargarMateriales();
+    this.roleService.selectedRole$.subscribe(role => {
+      this.userType = role;
+    });
+  }
+
+  canCreate(): boolean {
+    return this.userType === UserType.ADMINISTRADOR || this.userType === UserType.PROFESOR;
   }
 
   cargarPlanificaciones(): void {
@@ -110,7 +142,7 @@ export class PlanificacionesListComponent implements OnInit {
   }
 
   editarPlanificacion(id: number): void {
-    // La navegación se maneja a través del routerLink
+    this.router.navigate(['/planificaciones/editar', id]);
   }
 
   eliminarPlanificacion(id: number): void {

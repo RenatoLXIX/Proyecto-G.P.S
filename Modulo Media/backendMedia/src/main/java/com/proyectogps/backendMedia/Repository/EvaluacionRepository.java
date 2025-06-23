@@ -12,5 +12,5 @@ public interface EvaluacionRepository extends JpaRepository<Evaluacion, Integer>
     List<Evaluacion> findByAsignatura(String asignatura);
     List<Evaluacion> findByTieneSolucionario(boolean tieneSolucionario);
     List<Evaluacion> findByTiempoMinutosLessThan(int tiempoMinutos);
-    List<Evaluacion> findByMaterialId(int idMaterial);
+    List<Evaluacion> findByMaterial_IdMaterial(int idMaterial);
 }

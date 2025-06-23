@@ -42,7 +42,7 @@ public class EvaluacionService {
     }
 
     public List<Evaluacion> getEvaluacionesByMaterialId(Integer idMaterial) {
-        return repository.findByMaterialId(idMaterial);
+        return repository.findByMaterial_IdMaterial(idMaterial);
     }
 
     public Evaluacion saveEvaluacion(Evaluacion evaluacion) {
@@ -55,7 +55,7 @@ public class EvaluacionService {
 
     public Evaluacion updateEvaluacion(Integer id, Evaluacion evaluacion) {
         if (repository.existsById(id)) {
-            evaluacion.setId_evaluacion(id);
+            evaluacion.setIdEvaluacion(id);
             return repository.save(evaluacion);
         }
         return null;

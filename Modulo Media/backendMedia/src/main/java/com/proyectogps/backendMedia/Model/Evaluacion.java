@@ -8,7 +8,7 @@ public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_evaluacion")
-    private int id_evaluacion;
+    private int idEvaluacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -20,28 +20,25 @@ public class Evaluacion {
     private String nivel;
 
     @Column(name = "tiempo_minutos", nullable = false, length = 300)
-    private int tiempo_minutos;
+    private int tiempoMinutos;
 
     @Column(name = "tiene_solucionario", nullable = false)
-    private Boolean tiene_solucionario;
-
-    @Column(name = "id_material", nullable = false)
-    private Integer idMaterial;
+    private Boolean tieneSolucionario;
 
     //RELACIONES
 
     @ManyToOne
-    @JoinColumn(name = "id_material", referencedColumnName = "id_material") // Clave foránea
+    @JoinColumn(name = "id_material", referencedColumnName = "id_material", nullable = false) // Clave foránea
     private Material material;
 
 
     //GETTERS Y SETTERS
     public int getIdEvaluacion() {
-        return id_evaluacion;
+        return idEvaluacion;
     }
 
-    public void setId_evaluacion(int id_evaluacion) {
-        this.id_evaluacion = id_evaluacion;
+    public void setIdEvaluacion(int idEvaluacion) {
+        this.idEvaluacion = idEvaluacion;
     }
 
     public String getTipo() {
@@ -68,20 +65,20 @@ public class Evaluacion {
         this.nivel = nivel;
     }
 
-    public int getTiempo_minutos() {
-        return tiempo_minutos;
+    public int getTiempoMinutos() {
+        return tiempoMinutos;
     }
 
-    public void setTiempo_minutos(int tiempo_minutos) {
-        this.tiempo_minutos = tiempo_minutos;
+    public void setTiempoMinutos(int tiempoMinutos) {
+        this.tiempoMinutos = tiempoMinutos;
     }
 
-    public Boolean getTiene_solucionario() {
-        return tiene_solucionario;
+    public Boolean getTieneSolucionario() {
+        return tieneSolucionario;
     }
 
-    public void setTiene_solucionario(Boolean tiene_solucionario) {
-        this.tiene_solucionario = tiene_solucionario;
+    public void setTieneSolucionario(Boolean tieneSolucionario) {
+        this.tieneSolucionario = tieneSolucionario;
     }
 
     public Material getMaterial() {

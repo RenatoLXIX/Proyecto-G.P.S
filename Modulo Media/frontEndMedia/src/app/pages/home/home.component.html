@@ -11,12 +11,11 @@
                         <span class="text-gray-700">Seleccionar Rol:</span>
                         <select 
                             class="user-type-selector"
-                            #selectUser
-                            [(ngModel)]="currentUserType"
-                            (change)="onChangeUserType(selectUser.value)">
-                            <option [value]="userTypes.ESTUDIANTE">Estudiante</option>
-                            <option [value]="userTypes.PROFESOR">Profesor</option>
-                            <option [value]="userTypes.ADMINISTRADOR">Administrador</option>
+                            [ngModel]="currentUserType"
+                            (ngModelChange)="onChangeUserType($event)">
+                            <option *ngFor="let type of userTypeValues" [value]="type">
+                                {{ userTypeLabels[type] }}
+                            </option>
                         </select>
                     </div>
                 </div>
@@ -28,13 +27,13 @@
     <main class="max-w-7xl mx-auto py-6 px-4">
         <div class="content-section">
             <div class="role-indicator">
-                {{ currentUserType === userTypes.ESTUDIANTE ? 'Vista de Estudiante' :
-                   currentUserType === userTypes.PROFESOR ? 'Vista de Profesor' :
+                {{ currentUserType === userTypesEnum.ESTUDIANTE ? 'Vista de Estudiante' :
+                   currentUserType === userTypesEnum.PROFESOR ? 'Vista de Profesor' :
                    'Vista de Administrador' }}
             </div>
 
             <!-- Contenido para Estudiantes -->
-            <div *ngIf="currentUserType === userTypes.ESTUDIANTE">
+            <div *ngIf="currentUserType === userTypesEnum.ESTUDIANTE">
                 <h2 class="text-2xl font-bold mb-4">Panel de Estudiante</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="p-4 bg-blue-50 rounded-lg">
@@ -49,7 +48,7 @@
             </div>
 
             <!-- Contenido para Profesores -->
-            <div *ngIf="currentUserType === userTypes.PROFESOR">
+            <div *ngIf="currentUserType === userTypesEnum.PROFESOR">
                 <h2 class="text-2xl font-bold mb-4">Panel de Profesor</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="p-4 bg-purple-50 rounded-lg">
@@ -64,7 +63,7 @@
             </div>
 
             <!-- Contenido para Administradores -->
-            <div *ngIf="currentUserType === userTypes.ADMINISTRADOR">
+            <div *ngIf="currentUserType === userTypesEnum.ADMINISTRADOR">
                 <h2 class="text-2xl font-bold mb-4">Panel de Administrador</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="p-4 bg-red-50 rounded-lg">

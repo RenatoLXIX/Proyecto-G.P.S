@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserType } from '../../models/user-type.model';
+import { RoleService } from '../../services/role.service';
 
 @Component({
     selector: 'app-home',
@@ -8,16 +9,23 @@ import { UserType } from '../../models/user-type.model';
 })
 export class HomeComponent implements OnInit {
     currentUserType: UserType = UserType.ESTUDIANTE;
-    userTypes = UserType;
+    userTypeValues = Object.values(UserType);
+    userTypesEnum = UserType;
+    userTypeLabels = {
+        [UserType.ESTUDIANTE]: 'Estudiante',
+        [UserType.PROFESOR]: 'Profesor',
+        [UserType.ADMINISTRADOR]: 'Administrador'
+    };
 
-    constructor() {}
+    constructor(private roleService: RoleService) {}
 
     ngOnInit(): void {
-        // Inicializa con tipo estudiante por defecto
-        this.currentUserType = UserType.ESTUDIANTE;
+        this.roleService.selectedRole$.subscribe(role => {
+            this.currentUserType = role;
+        });
     }
 
-    onChangeUserType(newType: string): void {
-        this.currentUserType = newType as UserType;
+    onChangeUserType(newType: UserType): void {
+        this.roleService.changeRole(newType);
     }
 } 
