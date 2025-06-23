@@ -61,6 +61,7 @@ public class MaterialService {
                 String fileUrl = fileStorageService.storeFile(file);
                 material.setUrlDescarga(fileUrl);
             }
+            material.setAutor("Profesor");
             material.setFechaModificacion(LocalDate.now());
             return repository.save(material);
         } catch (Exception e) {
@@ -72,26 +73,33 @@ public class MaterialService {
         repository.deleteById(id);
     }
 
-    public Material updateMaterial(int id, Material material, MultipartFile file) {
-        if (repository.existsById(id)) {
+    public Material updateMaterial(int id, Material materialDetails, MultipartFile file) {
+        return repository.findById(id).map(existingMaterial -> {
             try {
-                if (material.isEsOnline()) {
-                    // Si es online, verificar que tenga una URL válida
-                    if (material.getUrlDescarga() == null || material.getUrlDescarga().trim().isEmpty()) {
+                existingMaterial.setTitulo(materialDetails.getTitulo());
+                existingMaterial.setTipo(materialDetails.getTipo());
+                existingMaterial.setNivel(materialDetails.getNivel());
+                existingMaterial.setAsignatura(materialDetails.getAsignatura());
+                existingMaterial.setDescripcion(materialDetails.getDescripcion());
+                existingMaterial.setEsOnline(materialDetails.isEsOnline());
+
+                if (materialDetails.isEsOnline()) {
+                    if (materialDetails.getUrlDescarga() == null || materialDetails.getUrlDescarga().trim().isEmpty()) {
                         throw new RuntimeException("Para materiales online se requiere una URL válida");
                     }
-                } else if (file != null && !file.isEmpty()) {
-                    // Si no es online y se proporciona un archivo, actualizarlo
-                    String fileUrl = fileStorageService.storeFile(file);
-                    material.setUrlDescarga(fileUrl);
+                    existingMaterial.setUrlDescarga(materialDetails.getUrlDescarga());
+                } else {
+                    if (file != null && !file.isEmpty()) {
+                        String fileUrl = fileStorageService.storeFile(file);
+                        existingMaterial.setUrlDescarga(fileUrl);
+                    }
                 }
-                material.setIdMaterial(id);
-                material.setFechaModificacion(LocalDate.now());
-                return repository.save(material);
+                
+                existingMaterial.setFechaModificacion(LocalDate.now());
+                return repository.save(existingMaterial);
             } catch (Exception e) {
                 throw new RuntimeException("Error al actualizar el material: " + e.getMessage());
             }
-        }
-        return null;
+        }).orElse(null);
     }
 } 

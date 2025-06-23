@@ -115,6 +115,13 @@ import { Material } from '../../../models/material.interface';
             <label class="block text-gray-700 text-sm font-bold mb-2" for="file">
               Archivo
             </label>
+            <div *ngIf="editMode && existingFileUrl" class="mb-2">
+              <p class="text-sm text-gray-600">
+                Archivo actual: 
+                <a [href]="existingFileUrl" target="_blank" class="text-blue-600 hover:underline">{{ getFileName(existingFileUrl) }}</a>
+              </p>
+              <p class="text-xs text-gray-500">Seleccione un nuevo archivo para reemplazar el actual.</p>
+            </div>
             <input
               type="file"
               (change)="onFileSelected($event)"
@@ -150,6 +157,7 @@ export class MaterialFormComponent implements OnInit {
   submitted = false;
   materialId: number | null = null;
   selectedFile: File | null = null;
+  existingFileUrl: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -176,6 +184,9 @@ export class MaterialFormComponent implements OnInit {
       this.materialService.getMaterialById(id)
         .subscribe(material => {
           this.materialForm.patchValue(material);
+          if (material.url_descarga) {
+            this.existingFileUrl = material.url_descarga;
+          }
         });
     }
 
@@ -226,5 +237,16 @@ export class MaterialFormComponent implements OnInit {
 
   onCancel(): void {
     this.router.navigate(['/materiales']);
+  }
+
+  getFileName(url: string): string {
+    try {
+      const parsedUrl = new URL(url);
+      const path = parsedUrl.pathname;
+      const fileName = path.substring(path.lastIndexOf('/') + 1);
+      return decodeURIComponent(fileName);
+    } catch (e) {
+      return url;
+    }
   }
 } 
