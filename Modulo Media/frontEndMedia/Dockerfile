@@ -17,5 +17,6 @@ EXPOSE 8080
 RUN rm -rf /usr/share/nginx/html/*
 
 COPY --from=build /app/dist/front-end-media /usr/share/nginx/html
+COPY default.conf.template /etc/nginx/templates/default.conf.template
 
-CMD ["sh", "-c", "sed -i 's/listen       80;/listen       ${PORT};/' /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "envsubst < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
