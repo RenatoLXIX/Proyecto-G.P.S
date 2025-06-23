@@ -3,11 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Planificacion } from '../models/planificacion.interface';
 
+// TODO: Migrar a environment cuando esté disponible
+const API_BASE_URL = 'https://proyecto-gps-media-backend-production.up.railway.app/api';
+
 @Injectable({
   providedIn: 'root'
 })
 export class PlanificacionService {
-  private apiUrl = 'http://localhost:8080/api/planificaciones';
+  private apiUrl = API_BASE_URL + '/planificaciones';
 
   constructor(private http: HttpClient) { }
 

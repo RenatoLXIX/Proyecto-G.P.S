@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Material } from '../models/material.interface';
+// TODO: Migrar a environment cuando esté disponible
+const API_BASE_URL = 'https://proyecto-gps-media-backend-production.up.railway.app/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MaterialService {
-  private apiUrl = 'http://localhost:8080/api/materiales';
+  private apiUrl = API_BASE_URL + '/materiales';
 
   constructor(private http: HttpClient) { }
 
@@ -62,6 +64,6 @@ export class MaterialService {
   }
 
   downloadMaterial(fileName: string): Observable<Blob> {
-    return this.http.get(`http://localhost:8080/api/files/${fileName}`, { responseType: 'blob' });
+    return this.http.get(`${API_BASE_URL}/files/${fileName}`, { responseType: 'blob' });
   }
 } 
