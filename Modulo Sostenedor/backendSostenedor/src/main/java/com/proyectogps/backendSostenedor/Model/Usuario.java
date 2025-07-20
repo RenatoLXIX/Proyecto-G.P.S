@@ -1,6 +1,5 @@
 package com.proyectogps.backendSostenedor.Model;
 
-import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -44,7 +43,7 @@ public class Usuario {
     @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")
     private Establecimiento establecimiento;
 
-
+    
 
     // GETTERS AND SETTERS
     

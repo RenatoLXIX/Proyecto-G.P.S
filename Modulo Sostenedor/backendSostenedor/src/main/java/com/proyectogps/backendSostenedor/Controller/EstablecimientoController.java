@@ -1,5 +1,6 @@
 package com.proyectogps.backendSostenedor.controller;
 
+import com.proyectogps.backendSostenedor.DTO.InformeComunalDTO;
 import com.proyectogps.backendSostenedor.DTO.InformeGeneralDTO;
 import com.proyectogps.backendSostenedor.service.EstablecimientoService;
 
@@ -17,4 +18,10 @@ public class EstablecimientoController {
     public InformeGeneralDTO generarInformeGeneral(@PathVariable Integer id) {
         return establecimientoService.generarInformeGeneral(id);
     }
+
+    @GetMapping("/{id}/informe-comunal")
+    public InformeComunalDTO generarInformeComunal(@PathVariable Integer id) {
+        return establecimientoService.generarInformeComunal(id);
+    }
+
 }

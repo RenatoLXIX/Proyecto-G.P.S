@@ -1,121 +1,80 @@
 package com.proyectogps.backendSostenedor.Model;
 
-import java.util.Date;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
-//@Table(name = "mensaje")
+@Table(name = "mensaje") // Especificar el nombre de la tabla para evitar confusión
 public class Mensaje {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_mensaje")
-    private Integer idMensaje;
+    @Column(name = "id_mensaje") // Coincide con la columna PK en la tabla
+    private Long id;
 
-    @Column(name = "asunto", nullable = false, length = 200)
+    @Column(name = "asunto")
     private String asunto;
 
-    @Column(name = "contenido", nullable = false, length = 200)
+    @Column(name = "contenido")
     private String contenido;
 
-    @Column(name = "fecha_envio", nullable = false)
-    private Date fecha_envio;
-
-    @Column(name = "remitente_id", nullable = false, length = 255)
-    private int remitente_id;
-
-    @Column(name = "filtros", nullable = false, length = 50)
+    @Column(name = "filtros")
     private String filtros;
 
+    @Column(name = "fecha_envio")
+    private LocalDateTime fechaEnvio;
 
-    //RELACIONES
-
-     @ManyToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false) // FK hacia usuario
     private Usuario usuario;
 
+    // Getters y setters
 
+    public Long getId() {
+        return id;
+    }
 
-    // GETTERS AND SETTERS
-     public Integer getIdMensaje() {
-         return idMensaje;
-     }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getAsunto() {
+        return asunto;
+    }
 
-     public void setIdMensaje(Integer idMensaje) {
-         this.idMensaje = idMensaje;
-     }
+    public void setAsunto(String asunto) {
+        this.asunto = asunto;
+    }
 
+    public String getContenido() {
+        return contenido;
+    }
 
-     public String getAsunto() {
-         return asunto;
-     }
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
 
+    public String getFiltros() {
+        return filtros;
+    }
 
-     public void setAsunto(String asunto) {
-         this.asunto = asunto;
-     }
+    public void setFiltros(String filtros) {
+        this.filtros = filtros;
+    }
 
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
 
-     public String getContenido() {
-         return contenido;
-     }
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-     public void setContenido(String contenido) {
-         this.contenido = contenido;
-     }
-
-
-     public Date getFecha_envio() {
-         return fecha_envio;
-     }
-
-
-     public void setFecha_envio(Date fecha_envio) {
-         this.fecha_envio = fecha_envio;
-     }
-
-
-     public int getRemitente_id() {
-         return remitente_id;
-     }
-
-
-     public void setRemitente_id(int remitente_id) {
-         this.remitente_id = remitente_id;
-     }
-
-
-     public String getFiltros() {
-         return filtros;
-     }
-
-
-     public void setFiltros(String filtros) {
-         this.filtros = filtros;
-     }
-
-
-     public Usuario getUsuario() {
-         return usuario;
-     }
-
-
-     public void setUsuario(Usuario usuario) {
-         this.usuario = usuario;
-     }
-
-
-
-
-    
-
-    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 }

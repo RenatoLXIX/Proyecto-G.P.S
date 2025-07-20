@@ -1,7 +1,6 @@
 package com.proyectogps.backendSostenedor.Model;
 
 import jakarta.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
