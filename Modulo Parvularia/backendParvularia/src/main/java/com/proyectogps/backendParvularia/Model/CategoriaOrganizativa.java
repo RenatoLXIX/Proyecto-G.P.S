@@ -9,10 +9,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.Table;
 
 
 @Entity
-//@Table(name = "categoria_organizativa")
+@Table(name = "categoria_organizativa")
 public class CategoriaOrganizativa {
     
     @Id
@@ -26,14 +27,24 @@ public class CategoriaOrganizativa {
     @Column(name = "description", nullable = false, length = 255 )
     private String descripcion;
 
+    @Column(name = "nucleo", nullable = false, length = 255 )
+    private String nucleo;
+
+    @Column(name = "eje", nullable = false, length = 255 )
+    private String eje;
+
+    @Column(name = "ambito", nullable = false, length = 255 )
+    private String ambito;
+    
+
 
 //Relaciones
 
     //abajo hay otro error pero comentado
   
     //utilizar relacion si se desecha clase MaterialCategoria
-     @ManyToMany(mappedBy = "categoria_organizativa")
-    private List<Material> materiales;
+     @ManyToMany(mappedBy = "categoriaOrganizativa")
+    private List<Material> material;
 
 
 
@@ -78,13 +89,13 @@ public class CategoriaOrganizativa {
 
 
      public List<Material> getMateriales() {
-         return materiales;
+         return material;
      }
 
 
 
      public void setMateriales(List<Material> materiales) {
-         this.materiales = materiales;
+         this.material = materiales;
      }
 
 

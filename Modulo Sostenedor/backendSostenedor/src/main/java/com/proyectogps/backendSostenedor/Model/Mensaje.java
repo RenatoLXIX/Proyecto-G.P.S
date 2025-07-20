@@ -1,6 +1,6 @@
 package com.proyectogps.backendSostenedor.Model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +22,7 @@ public class Mensaje {
     private String asunto;
 
     @Column(name = "contenido", nullable = false, length = 200)
-    private Date contenido;
+    private String contenido;
 
     @Column(name = "fecha_envio", nullable = false)
     private Date fecha_envio;
@@ -63,12 +63,12 @@ public class Mensaje {
      }
 
 
-     public Date getContenido() {
+     public String getContenido() {
          return contenido;
      }
 
 
-     public void setContenido(Date contenido) {
+     public void setContenido(String contenido) {
          this.contenido = contenido;
      }
 
