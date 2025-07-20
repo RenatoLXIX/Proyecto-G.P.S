@@ -31,8 +31,8 @@ import { UserType } from '../../../models/user-type.model';
             <div class="flex justify-between items-start mb-3">
               <h3 class="text-xl font-bold text-gray-800">{{planificacion.tipo}}</h3>
               <div class="flex gap-2">
-                <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">{{planificacion.nivel}}</span>
-                <span class="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">{{planificacion.asignatura}}</span>
+                <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">{{formatTag(planificacion.nivel)}}</span>
+                <span class="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">{{formatTag(planificacion.asignatura)}}</span>
               </div>
             </div>
 
@@ -60,13 +60,19 @@ import { UserType } from '../../../models/user-type.model';
               <div class="space-x-2">
                 <button *ngIf="planificacion.idPlanificacion && canCreate()"
                         (click)="editarPlanificacion(planificacion.idPlanificacion)" 
-                        class="text-yellow-600 hover:text-yellow-800 font-medium text-sm">
-                  Editar
+                        class="text-yellow-600 hover:text-yellow-800 p-2 rounded-lg hover:bg-yellow-50 transition-colors"
+                        title="Editar planificación">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
                 </button>
                 <button *ngIf="planificacion.idPlanificacion && canCreate()"
                         (click)="eliminarPlanificacion(planificacion.idPlanificacion)" 
-                        class="text-red-600 hover:text-red-800 font-medium text-sm">
-                  Eliminar
+                        class="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        title="Eliminar planificación">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
                 </button>
               </div>
               <span class="text-sm text-gray-500">
@@ -152,5 +158,9 @@ export class PlanificacionesListComponent implements OnInit {
           this.planificaciones = this.planificaciones.filter(p => p.idPlanificacion !== id);
         });
     }
+  }
+
+  formatTag(tag: string): string {
+    return tag.replace(/_/g, ' ');
   }
 } 

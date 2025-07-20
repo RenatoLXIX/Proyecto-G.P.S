@@ -38,6 +38,16 @@ import { Material } from '../../../models/material.interface';
               <option value="VIDEO">Video</option>
               <option value="PRESENTACION">Presentación</option>
               <option value="ACTIVIDAD">Actividad</option>
+              <option value="ENSAYO_SIMCE">Ensayo SIMCE</option>
+              <option value="ENSAYO_PDT">Ensayo PDT</option>
+              <option value="GUIA_PDT">Guía PDT</option>
+              <option value="SOLUCIONARIO_PDT">Solucionario PDT</option>
+              <option value="MATERIAL_PSICOLOGICO">Material Psicológico</option>
+              <option value="MATERIAL_EMPRENDIMIENTO">Material Emprendimiento</option>
+              <option value="TUTORIAL_SOFTWARE">Tutorial Software Educativo</option>
+              <option value="APUNTE">Apunte</option>
+              <option value="GUIA_SOLUCIONARIO">Guía con Solucionario</option>
+
             </select>
           </div>
 
@@ -70,8 +80,13 @@ import { Material } from '../../../models/material.interface';
               <option value="">Seleccione una asignatura</option>
               <option value="MATEMATICAS">Matemáticas</option>
               <option value="LENGUAJE">Lenguaje</option>
-              <option value="CIENCIAS">Ciencias</option>
+              <option value="FISICA">Física</option>
+              <option value="QUIMICA">Química</option>
+              <option value="BIOLOGIA">Biología</option>
               <option value="HISTORIA">Historia</option>
+              <option value="INGLES">Inglés</option>
+              <option value="PSICOLOGIA">Psicología</option>
+              <option value="EMPRENDIMIENTO">Emprendimiento</option>
             </select>
           </div>
 
