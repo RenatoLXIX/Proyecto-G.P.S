@@ -1,0 +1,207 @@
+<div class="min-h-screen bg-gray-100">
+    <!-- Barra de navegación -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-semibold">Portal Educativo Parvularia</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-3 selector-container">
+                        <span class="text-blue-800 font-semibold text-sm">Nivel Educativo:</span>
+                        <select 
+                            class="user-type-selector"
+                            [ngModel]="currentNivel"
+                            (ngModelChange)="onChangeNivel($event)">
+                            <option *ngFor="let nivel of nivelValues" [value]="nivel">
+                                {{ nivelLabels[nivel] }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Indicador de Nivel -->
+    <div class="level-banner py-6">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-center space-x-4">
+                <div class="banner-icon rounded-full p-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div class="text-center">
+                    <h1 class="level-title text-2xl mb-1">{{ nivelLabels[currentNivel] }}</h1>
+                    <p class="level-subtitle text-sm">Panel de Docente - Educación Parvularia</p>
+                </div>
+                <div class="banner-icon rounded-full p-3">
+                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
+    <main class="max-w-7xl mx-auto py-6 px-4">
+        <div class="content-section">
+            <!-- Contenido para Docentes -->
+            <div>
+                <h2 class="text-2xl font-bold mb-4">Panel de Docente Parvularia</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Materiales -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Materiales</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gestiona materiales educativos por nivel</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let material of materialesRecientes.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{material.titulo}}</span>
+                                <span class="text-xs text-gray-500">{{material.nivel}}</span>
+                            </div>
+                            <div *ngIf="materialesRecientes.length === 0" class="text-sm text-gray-500 italic">
+                                No hay materiales creados
+                            </div>
+                        </div>
+                        <button (click)="verMateriales()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Gestionar Materiales
+                        </button>
+                    </div>
+
+                    <!-- Planificaciones -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Planificaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crea y organiza planes de clase</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let planificacion of planificacionesRecientes.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{planificacion.tipo}}</span>
+                                <span class="text-xs text-gray-500">{{planificacion.nivel}}</span>
+                            </div>
+                            <div *ngIf="planificacionesRecientes.length === 0" class="text-sm text-gray-500 italic">
+                                No hay planificaciones creadas
+                            </div>
+                        </div>
+                        <button (click)="verPlanificaciones()" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Gestionar Planificaciones
+                        </button>
+                    </div>
+
+                    <!-- Materiales por Área -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Áreas de Aprendizaje</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Materiales organizados por área</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">Lenguaje</span>
+                                <span class="text-xs text-gray-500">{{materialesLenguaje}} materiales</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">Matemáticas</span>
+                                <span class="text-xs text-gray-500">{{materialesMatematicas}} materiales</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">Apoyo Psicológico</span>
+                                <span class="text-xs text-gray-500">{{materialesPsicologico}} materiales</span>
+                            </div>
+                        </div>
+                        <button (click)="verMateriales()" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            Ver por Área
+                        </button>
+                    </div>
+
+                    <!-- Niveles Educativos -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Niveles Educativos</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Materiales por nivel educativo</p>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">Medio Menor/Mayor</span>
+                                <span class="text-xs text-gray-500">{{materialesMedio}} materiales</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">Pre-Kinder/Kinder</span>
+                                <span class="text-xs text-gray-500">{{materialesPreKinder}} materiales</span>
+                            </div>
+                        </div>
+                        <button (click)="verMateriales()" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Ver por Nivel
+                        </button>
+                    </div>
+
+                    <!-- Materiales Descargables -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-yellow-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Materiales Descargables</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Recursos disponibles para descargar</p>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium">Materiales descargables:</span>
+                                <span class="text-lg font-bold text-yellow-600">{{materialesDescargables}}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-yellow-600 h-2 rounded-full" [style.width.%]="(materialesDescargables/totalMateriales)*100"></div>
+                            </div>
+                        </div>
+                        <button (click)="verMateriales()" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors">
+                            Ver Materiales
+                        </button>
+                    </div>
+
+                    <!-- Estadísticas -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Estadísticas</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Resumen de actividad</p>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Total materiales:</span>
+                                <span class="font-bold text-gray-800">{{totalMateriales}}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Total planificaciones:</span>
+                                <span class="font-bold text-indigo-600">{{totalPlanificaciones}}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Materiales descargables:</span>
+                                <span class="font-bold text-green-600">{{materialesDescargables}}</span>
+                            </div>
+                        </div>
+                        <button (click)="verEstadisticas()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                            Ver Estadísticas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div> 

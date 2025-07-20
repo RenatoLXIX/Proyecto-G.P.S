@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Iniciar Backend (Perfil Railway)",
+            "request": "launch",
+            "mainClass": "com.proyectogps.backendMedia.BackendMediaApplication",
+            "projectName": "backendMedia",
+            "vmArgs": "-Dspring.profiles.active=railway",
+            "envFile": "${workspaceFolder}/Modulo Media/backendMedia/.env"
+        },
+        {
+            "type": "java",
+            "name": "Iniciar Backend (Perfil Local)",
+            "request": "launch",
+            "mainClass": "com.proyectogps.backendMedia.BackendMediaApplication",
+            "projectName": "backendMedia"
+        }
+    ]
+}
