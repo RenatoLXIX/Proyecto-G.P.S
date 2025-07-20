@@ -1,0 +1,275 @@
+<div class="min-h-screen bg-gray-100">
+    <!-- Barra de navegación -->
+    <nav class="bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-semibold">Portal Educativo Media</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-gray-700">Seleccionar Rol:</span>
+                        <select 
+                            class="user-type-selector"
+                            [ngModel]="currentUserType"
+                            (ngModelChange)="onChangeUserType($event)">
+                            <option *ngFor="let type of userTypeValues" [value]="type">
+                                {{ userTypeLabels[type] }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="max-w-7xl mx-auto py-6 px-4">
+        <div class="content-section">
+            <div class="role-indicator">
+                {{ currentUserType === userTypesEnum.ESTUDIANTE ? 'Vista de Estudiante' :
+                   currentUserType === userTypesEnum.PROFESOR ? 'Vista de Profesor' :
+                   'Vista de Administrador' }}
+            </div>
+
+            <!-- Contenido para Estudiantes -->
+            <div *ngIf="currentUserType === userTypesEnum.ESTUDIANTE">
+                <h2 class="text-2xl font-bold mb-4">Panel de Estudiante</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Mis Cursos -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Mis Cursos</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Accede a tus materias y contenidos</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let curso of misCursos.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{curso.asignatura}}</span>
+                                <span class="text-xs text-gray-500">{{curso.profesor}}</span>
+                            </div>
+                            <div *ngIf="misCursos.length === 0" class="text-sm text-gray-500 italic">
+                                No tienes cursos inscritos
+                            </div>
+                        </div>
+                        <button (click)="verMisCursos()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Ver Todos los Cursos
+                        </button>
+                    </div>
+
+                    <!-- Calificaciones -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Calificaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Consulta tus notas y progreso</p>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium">Promedio General:</span>
+                                <span class="text-lg font-bold text-green-600">{{promedioGeneral | number:'1.1-1'}}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" [style.width.%]="(promedioGeneral/7)*100"></div>
+                            </div>
+                        </div>
+                        <button (click)="verCalificaciones()" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            Ver Calificaciones
+                        </button>
+                    </div>
+
+                    <!-- Evaluaciones Pendientes -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Evaluaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Próximas evaluaciones y tareas</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let evaluacion of evaluacionesRecientes.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{evaluacion.tipo}}</span>
+                                <span class="text-xs text-gray-500">{{evaluacion.asignatura}}</span>
+                            </div>
+                            <div *ngIf="evaluacionesRecientes.length === 0" class="text-sm text-gray-500 italic">
+                                No hay evaluaciones próximas
+                            </div>
+                        </div>
+                        <button (click)="verEvaluaciones()" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Ver Evaluaciones
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido para Profesores -->
+            <div *ngIf="currentUserType === userTypesEnum.PROFESOR">
+                <h2 class="text-2xl font-bold mb-4">Panel de Profesor</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Mis Cursos -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-purple-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Mis Cursos</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Administra tus clases y materiales</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let curso of misCursos.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{curso.asignatura}}</span>
+                                <span class="text-xs text-gray-500">{{curso.nivel}}</span>
+                            </div>
+                            <div *ngIf="misCursos.length === 0" class="text-sm text-gray-500 italic">
+                                No tienes cursos asignados
+                            </div>
+                        </div>
+                        <button (click)="verMisCursos()" class="w-full bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                            Gestionar Cursos
+                        </button>
+                    </div>
+
+                    <!-- Evaluaciones -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-yellow-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Evaluaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gestiona calificaciones y exámenes</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let evaluacion of evaluacionesRecientes.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{evaluacion.tipo}}</span>
+                                <span class="text-xs text-gray-500">{{evaluacion.asignatura}}</span>
+                            </div>
+                            <div *ngIf="evaluacionesRecientes.length === 0" class="text-sm text-gray-500 italic">
+                                No hay evaluaciones creadas
+                            </div>
+                        </div>
+                        <button (click)="verEvaluaciones()" class="w-full bg-yellow-600 text-white px-4 py-2 rounded-lg hover:bg-yellow-700 transition-colors">
+                            Gestionar Evaluaciones
+                        </button>
+                    </div>
+
+                    <!-- Materiales -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Materiales</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crea y gestiona recursos educativos</p>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium">Materiales creados:</span>
+                                <span class="text-lg font-bold text-blue-600">{{totalMateriales}}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" [style.width.%]="(totalMateriales/50)*100"></div>
+                            </div>
+                        </div>
+                        <button (click)="verMateriales()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Gestionar Materiales
+                        </button>
+                    </div>
+
+                    <!-- Calificaciones -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-green-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Calificaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Gestiona las notas de tus estudiantes</p>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium">Estudiantes evaluados:</span>
+                                <span class="text-lg font-bold text-green-600">{{estudiantesEvaluados}}</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" [style.width.%]="(estudiantesEvaluados/100)*100"></div>
+                            </div>
+                        </div>
+                        <button (click)="verCalificaciones()" class="w-full bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            Gestionar Calificaciones
+                        </button>
+                    </div>
+
+                    <!-- Planificaciones -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-indigo-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Planificaciones</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Crea y organiza tus planes de clase</p>
+                        <div class="space-y-2 mb-4">
+                            <div *ngFor="let planificacion of planificacionesRecientes.slice(0, 3)" class="flex justify-between items-center p-2 bg-gray-50 rounded">
+                                <span class="font-medium text-sm">{{planificacion.tipo}}</span>
+                                <span class="text-xs text-gray-500">{{planificacion.asignatura}}</span>
+                            </div>
+                            <div *ngIf="planificacionesRecientes.length === 0" class="text-sm text-gray-500 italic">
+                                No hay planificaciones creadas
+                            </div>
+                        </div>
+                        <button (click)="verPlanificaciones()" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">
+                            Gestionar Planificaciones
+                        </button>
+                    </div>
+
+                    <!-- Estadísticas -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-gray-100">
+                        <div class="flex items-center mb-4">
+                            <svg class="w-8 h-8 text-red-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <h3 class="text-xl font-bold text-gray-800">Estadísticas</h3>
+                        </div>
+                        <p class="text-gray-600 mb-4">Resumen de tu actividad docente</p>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Total estudiantes:</span>
+                                <span class="font-bold text-gray-800">{{totalEstudiantes}}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Promedio general:</span>
+                                <span class="font-bold text-green-600">{{promedioGeneral | number:'1.1-1'}}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Asistencia:</span>
+                                <span class="font-bold text-blue-600">{{asistenciaPromedio}}%</span>
+                            </div>
+                        </div>
+                        <button (click)="verEstadisticas()" class="w-full bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                            Ver Estadísticas
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido para Administradores -->
+            <div *ngIf="currentUserType === userTypesEnum.ADMINISTRADOR">
+                <h2 class="text-2xl font-bold mb-4">Panel de Administrador</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-4 bg-red-50 rounded-lg">
+                        <h3 class="font-semibold">Gestión de Usuarios</h3>
+                        <p class="text-gray-600">Administra estudiantes y profesores</p>
+                    </div>
+                    <div class="p-4 bg-indigo-50 rounded-lg">
+                        <h3 class="font-semibold">Configuración del Sistema</h3>
+                        <p class="text-gray-600">Ajusta parámetros y permisos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div> 
