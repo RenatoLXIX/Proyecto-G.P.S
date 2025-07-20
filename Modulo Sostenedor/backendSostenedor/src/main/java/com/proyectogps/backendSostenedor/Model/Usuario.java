@@ -17,14 +17,15 @@ import jakarta.persistence.OneToMany;
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "id_usuario")
     private Integer idUsuario;
-
+    
     @Column(name = "rut", nullable = false, length = 12)
     private String rut;
 
     @Column(name = "nombre", nullable = false, length = 100)
-    private Date nombre;
+    private String nombre;
 
     @Column(name = "email", nullable = false, length = 100)
     private String email;
@@ -34,12 +35,6 @@ public class Usuario {
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
-
-    @Column(name = "id_establecimiento", nullable = false)
-    private Integer id_establecimiento;
-
-    
-
     //RELACIONES
 
     @OneToMany(mappedBy = "usuario")
@@ -50,29 +45,30 @@ public class Usuario {
     private Establecimiento establecimiento;
 
 
+
     // GETTERS AND SETTERS
-
+    
     public Integer getIdUsuario() {
-        return idUsuario;
-    }
+ 		return idUsuario;
+ 	}
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
+ 	public void setIdUsuario(Integer idUsuario) {
+ 		this.idUsuario = idUsuario;
+ 	}
 
     public String getRut() {
         return rut;
     }
 
-    public void setRut(String rut) {
+	public void setRut(String rut) {
         this.rut = rut;
     }
 
-    public Date getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(Date nombre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
@@ -100,13 +96,6 @@ public class Usuario {
         this.tipo = tipo;
     }
 
-    public Integer getId_establecimiento() {
-        return id_establecimiento;
-    }
-
-    public void setId_establecimiento(Integer id_establecimiento) {
-        this.id_establecimiento = id_establecimiento;
-    }
 
     public List<Mensaje> getMensaje() {
         return mensaje;
@@ -123,10 +112,6 @@ public class Usuario {
     public void setEstablecimiento(Establecimiento establecimiento) {
         this.establecimiento = establecimiento;
     }
-
-
-
-    
 
 
 

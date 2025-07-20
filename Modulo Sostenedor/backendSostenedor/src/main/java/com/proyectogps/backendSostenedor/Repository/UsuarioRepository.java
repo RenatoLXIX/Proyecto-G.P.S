@@ -9,16 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    // Métodos personalizados que podrías necesitar
-
+ 
+    List<Usuario> findByNombreContainingIgnoreCaseAndTipo(String nombre, String tipo);
+    List<Usuario> findByNombreContainingIgnoreCase(String nombre);
     List<Usuario> findByTipo(String tipo);
     List<Usuario> findByEstablecimientoIdEstablecimiento(Integer idEstablecimiento);
 
-
-
-    // Buscar por RUT
-    // Optional<Usuario> findByRut(String rut);
-    
-    // Buscar por email
-    // Optional<Usuario> findByEmail(String email);
 }

@@ -1,4 +1,4 @@
-package com.proyectogps.backendSostenedor.Controller;
+package com.proyectogps.backendSostenedor.controller;
 import java.util.Date;
 
 import java.util.List;
