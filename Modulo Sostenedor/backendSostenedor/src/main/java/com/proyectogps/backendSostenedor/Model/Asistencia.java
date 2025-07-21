@@ -1,5 +1,4 @@
 package com.proyectogps.backendSostenedor.Model;
-
 import java.sql.Date;
 
 import jakarta.persistence.Column;

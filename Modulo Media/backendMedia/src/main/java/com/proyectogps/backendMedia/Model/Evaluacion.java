@@ -1,15 +1,21 @@
 package com.proyectogps.backendMedia.Model;
 
-import jakarta.persistence.*;
-import java.time.LocalDate;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
-@Table(name = "evaluacion")
+//@Table(name = "evaluacion")
 public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_evaluacion")
-    private int idEvaluacion;
+    private Integer idEvaluacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -20,39 +26,28 @@ public class Evaluacion {
     @Column(name = "nivel", nullable = false, length = 50)
     private String nivel;
 
-    @Column(name = "descripcion", length = 1000)
-    private String descripcion;
-
-    @Column(name = "tiempo_minutos", nullable = false)
-    private int tiempoMinutos;
+    @Column(name = "tiempo_minutos", nullable = false, length = 300)
+    private int tiempo_minutos;
 
     @Column(name = "tiene_solucionario", nullable = false)
-    private Boolean tieneSolucionario;
+    private Boolean tiene_solucionario;
 
-    @Column(name = "tipo_recurso", nullable = false, length = 20)
-    private String tipoRecurso;
-
-    @Column(name = "url_recurso", length = 500)
-    private String urlRecurso;
-
-    @Column(name = "nombre_archivo", length = 255)
-    private String nombreArchivo;
-
-    @Column(name = "fecha_creacion")
-    private LocalDate fechaCreacion;
+    @Column(name = "id_material", nullable = false)
+    private Integer idMaterial;
 
     //RELACIONES
 
     @ManyToOne
-    @JoinColumn(name = "id_material", referencedColumnName = "id_material", nullable = true) 
+    @JoinColumn(name = "id_material", referencedColumnName = "id_material") // Clave foránea
     private Material material;
 
+
     //GETTERS Y SETTERS
-    public int getIdEvaluacion() {
+    public Integer getIdEvaluacion() {
         return idEvaluacion;
     }
 
-    public void setIdEvaluacion(int idEvaluacion) {
+    public void setIdEvaluacion(Integer idEvaluacion) {
         this.idEvaluacion = idEvaluacion;
     }
 
@@ -80,60 +75,28 @@ public class Evaluacion {
         this.nivel = nivel;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getTiempo_minutos() {
+        return tiempo_minutos;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setTiempo_minutos(int tiempo_minutos) {
+        this.tiempo_minutos = tiempo_minutos;
     }
 
-    public int getTiempoMinutos() {
-        return tiempoMinutos;
+    public Boolean getTiene_solucionario() {
+        return tiene_solucionario;
     }
 
-    public void setTiempoMinutos(int tiempoMinutos) {
-        this.tiempoMinutos = tiempoMinutos;
+    public void setTiene_solucionario(Boolean tiene_solucionario) {
+        this.tiene_solucionario = tiene_solucionario;
     }
 
-    public Boolean getTieneSolucionario() {
-        return tieneSolucionario;
+    public Integer getIdMaterial() {
+        return idMaterial;
     }
 
-    public void setTieneSolucionario(Boolean tieneSolucionario) {
-        this.tieneSolucionario = tieneSolucionario;
-    }
-
-    public String getTipoRecurso() {
-        return tipoRecurso;
-    }
-
-    public void setTipoRecurso(String tipoRecurso) {
-        this.tipoRecurso = tipoRecurso;
-    }
-
-    public String getUrlRecurso() {
-        return urlRecurso;
-    }
-
-    public void setUrlRecurso(String urlRecurso) {
-        this.urlRecurso = urlRecurso;
-    }
-
-    public String getNombreArchivo() {
-        return nombreArchivo;
-    }
-
-    public void setNombreArchivo(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
-    }
-
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setIdMaterial(Integer idMaterial) {
+        this.idMaterial = idMaterial;
     }
 
     public Material getMaterial() {
@@ -143,4 +106,7 @@ public class Evaluacion {
     public void setMaterial(Material material) {
         this.material = material;
     }
+
+
+    
 }
