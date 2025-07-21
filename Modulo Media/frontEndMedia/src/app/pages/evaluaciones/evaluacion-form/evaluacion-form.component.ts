@@ -28,6 +28,10 @@ import { Material } from '../../../models/material.interface';
               <option value="CONTROL">Control</option>
               <option value="TALLER">Taller</option>
               <option value="GUIA">Guía</option>
+              <option value="ENSAYO_SIMCE">Ensayo SIMCE</option>
+              <option value="ENSAYO_PDT">Ensayo PDT</option>
+              <option value="PRUEBA_UNIDAD">Prueba de Unidad</option>
+              <option value="EVALUACION_CLASE">Evaluación Clase a Clase</option>
             </select>
           </div>
 
@@ -60,8 +64,13 @@ import { Material } from '../../../models/material.interface';
               <option value="">Seleccione una asignatura</option>
               <option value="MATEMATICAS">Matemáticas</option>
               <option value="LENGUAJE">Lenguaje</option>
-              <option value="CIENCIAS">Ciencias</option>
+              <option value="FISICA">Física</option>
+              <option value="QUIMICA">Química</option>
+              <option value="BIOLOGIA">Biología</option>
               <option value="HISTORIA">Historia</option>
+              <option value="INGLES">Inglés</option>
+              <option value="PSICOLOGIA">Psicología</option>
+              <option value="EMPRENDIMIENTO">Emprendimiento</option>
             </select>
           </div>
 
@@ -269,29 +278,21 @@ export class EvaluacionFormComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-    const evaluacionData = {
+    const evaluacionData: any = {
       ...this.evaluacionForm.value,
       fechaCreacion: new Date()
     };
 
     if (this.f['tipoRecurso'].value === 'LOCAL' && this.selectedFile) {
-      formData.append('archivo', this.selectedFile);
       evaluacionData.nombreArchivo = this.selectedFile.name;
       evaluacionData.urlRecurso = null;
     }
 
-    Object.keys(evaluacionData).forEach(key => {
-      if (evaluacionData[key] !== null && evaluacionData[key] !== undefined) {
-        formData.append(key, evaluacionData[key]);
-      }
-    });
-
     if (this.editMode && this.evaluacionId) {
-      this.evaluacionService.updateEvaluacion(this.evaluacionId, formData)
+      this.evaluacionService.updateEvaluacion(this.evaluacionId, evaluacionData, this.selectedFile || undefined)
         .subscribe(() => this.router.navigate(['/evaluaciones']));
     } else {
-      this.evaluacionService.createEvaluacion(formData)
+      this.evaluacionService.createEvaluacion(evaluacionData, this.selectedFile || undefined)
         .subscribe(() => this.router.navigate(['/evaluaciones']));
     }
   }

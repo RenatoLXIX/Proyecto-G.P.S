@@ -35,8 +35,8 @@ import { UserType } from '../../../models/user-type.model';
             <p class="text-gray-600 mb-4 line-clamp-3">{{evaluacion.descripcion}}</p>
             
             <div class="flex flex-wrap gap-2 mb-4">
-              <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">{{evaluacion.nivel}}</span>
-              <span class="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">{{evaluacion.asignatura}}</span>
+              <span class="bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full font-medium">{{formatTag(evaluacion.nivel)}}</span>
+              <span class="bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full font-medium">{{formatTag(evaluacion.asignatura)}}</span>
             </div>
 
             <div class="flex items-center gap-2 text-sm text-gray-600 mb-4">
@@ -55,13 +55,19 @@ import { UserType } from '../../../models/user-type.model';
               <div class="space-x-2">
                 <button *ngIf="evaluacion.idEvaluacion && canCreate()"
                         (click)="editarEvaluacion(evaluacion.idEvaluacion)" 
-                        class="text-yellow-600 hover:text-yellow-800 font-medium text-sm">
-                  Editar
+                        class="text-yellow-600 hover:text-yellow-800 p-2 rounded-lg hover:bg-yellow-50 transition-colors"
+                        title="Editar evaluación">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
                 </button>
                 <button *ngIf="evaluacion.idEvaluacion && canCreate()"
                         (click)="eliminarEvaluacion(evaluacion.idEvaluacion)" 
-                        class="text-red-600 hover:text-red-800 font-medium text-sm">
-                  Eliminar
+                        class="text-red-600 hover:text-red-800 p-2 rounded-lg hover:bg-red-50 transition-colors"
+                        title="Eliminar evaluación">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                  </svg>
                 </button>
               </div>
               <a [href]="evaluacion.urlRecurso" target="_blank" 
@@ -129,5 +135,9 @@ export class EvaluacionesListComponent implements OnInit {
           this.evaluaciones = this.evaluaciones.filter(e => e.idEvaluacion !== id);
         });
     }
+  }
+
+  formatTag(tag: string): string {
+    return tag.replace(/_/g, ' ');
   }
 } 

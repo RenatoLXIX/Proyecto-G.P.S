@@ -5,6 +5,7 @@ import com.proyectogps.backendMedia.Service.EvaluacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
@@ -58,15 +59,39 @@ public class EvaluacionController {
     }
 
     @PostMapping
-    public Evaluacion createEvaluacion(@RequestBody Evaluacion evaluacion) {
-        return service.saveEvaluacion(evaluacion);
+    public Evaluacion createEvaluacion(
+            @RequestPart("evaluacion") Evaluacion evaluacion,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+        try {
+            System.out.println("=== DIAGNÓSTICO EVALUACIÓN ===");
+            System.out.println("Evaluacion recibida: " + evaluacion);
+            System.out.println("Tipo: " + evaluacion.getTipo());
+            System.out.println("Nivel: " + evaluacion.getNivel());
+            System.out.println("Asignatura: " + evaluacion.getAsignatura());
+            System.out.println("Descripción: " + evaluacion.getDescripcion());
+            System.out.println("Tiempo: " + evaluacion.getTiempoMinutos());
+            System.out.println("Tiene solucionario: " + evaluacion.getTieneSolucionario());
+            System.out.println("Tipo recurso: " + evaluacion.getTipoRecurso());
+            System.out.println("URL recurso: " + evaluacion.getUrlRecurso());
+            System.out.println("Fecha creación: " + evaluacion.getFechaCreacion());
+            System.out.println("Material: " + evaluacion.getMaterial());
+            System.out.println("File: " + (file != null ? file.getOriginalFilename() : "null"));
+            System.out.println("================================");
+            
+            return service.saveEvaluacion(evaluacion, file);
+        } catch (Exception e) {
+            System.err.println("ERROR al crear evaluación: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Evaluacion> updateEvaluacion(
             @PathVariable Integer id,
-            @RequestBody Evaluacion evaluacion) {
-        Evaluacion updatedEvaluacion = service.updateEvaluacion(id, evaluacion);
+            @RequestPart("evaluacion") Evaluacion evaluacion,
+            @RequestPart(value = "file", required = false) MultipartFile file) {
+        Evaluacion updatedEvaluacion = service.updateEvaluacion(id, evaluacion, file);
         return updatedEvaluacion != null ?
                 ResponseEntity.ok(updatedEvaluacion) :
                 ResponseEntity.notFound().build();

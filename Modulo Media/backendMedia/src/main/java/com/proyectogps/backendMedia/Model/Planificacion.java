@@ -1,19 +1,18 @@
 package com.proyectogps.backendMedia.Model;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-//@Table(name = "planificiacion")
+@Table(name = "planificacion")
 public class Planificacion {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_planificacion")
-    private Integer idPlanificacion;
+    private int idPlanificacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -27,20 +26,29 @@ public class Planificacion {
     @Column(name = "objetivos", nullable = false, length = 200)
     private String objetivos;
 
-    @Column(name = "recursos_adicionales", nullable = false, length = 255)
-    private String recursos_adicionales;
+    @Column(name = "fecha_creacion", nullable = false)
+    private LocalDate fechaCreacion;
 
+    @ManyToMany
+    @JoinTable(
+        name = "planificacion_material",
+        joinColumns = @JoinColumn(name = "id_planificacion"),
+        inverseJoinColumns = @JoinColumn(name = "id_material")
+    )
+    private Set<Material> materiales = new HashSet<>();
 
-    //RELACIONES
-
-
+    // Constructor por defecto
+    public Planificacion() {
+        this.fechaCreacion = LocalDate.now();
+        this.materiales = new HashSet<>();
+    }
 
     // GETTERS Y SETTERS
-    public Integer getIdPlanificacion() {
+    public int getIdPlanificacion() {
         return idPlanificacion;
     }
 
-    public void setIdPlanificacion(Integer idPlanificacion) {
+    public void setIdPlanificacion(int idPlanificacion) {
         this.idPlanificacion = idPlanificacion;
     }
 
@@ -76,19 +84,28 @@ public class Planificacion {
         this.objetivos = objetivos;
     }
 
-    public String getRecursos_adicionales() {
-        return recursos_adicionales;
+    public LocalDate getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setRecursos_adicionales(String recursos_adicionales) {
-        this.recursos_adicionales = recursos_adicionales;
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
-   
 
+    public Set<Material> getMateriales() {
+        return materiales;
+    }
 
-   
+    public void setMateriales(Set<Material> materiales) {
+        this.materiales = materiales;
+    }
 
-    
+    // Métodos helper para la relación
+    public void addMaterial(Material material) {
+        this.materiales.add(material);
+    }
 
-    
+    public void removeMaterial(Material material) {
+        this.materiales.remove(material);
+    }
 }

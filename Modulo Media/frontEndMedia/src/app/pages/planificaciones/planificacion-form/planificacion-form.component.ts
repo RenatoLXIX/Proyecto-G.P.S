@@ -60,8 +60,13 @@ import { Material } from '../../../models/material.interface';
               <option value="">Seleccione una asignatura</option>
               <option value="MATEMATICAS">Matemáticas</option>
               <option value="LENGUAJE">Lenguaje</option>
-              <option value="CIENCIAS">Ciencias</option>
+              <option value="FISICA">Física</option>
+              <option value="QUIMICA">Química</option>
+              <option value="BIOLOGIA">Biología</option>
               <option value="HISTORIA">Historia</option>
+              <option value="INGLES">Inglés</option>
+              <option value="PSICOLOGIA">Psicología</option>
+              <option value="EMPRENDIMIENTO">Emprendimiento</option>
             </select>
           </div>
 
