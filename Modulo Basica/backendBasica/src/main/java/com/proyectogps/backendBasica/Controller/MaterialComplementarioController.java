@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+
 @RequestMapping("/api/materiales")
 @CrossOrigin(origins = "*") // Permite llamadas desde el frontend
 public class MaterialComplementarioController {

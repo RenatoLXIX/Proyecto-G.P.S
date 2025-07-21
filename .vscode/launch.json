@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "BackendBasicaApplication",
+            "request": "launch",
+            "mainClass": "com.proyectogps.backendBasica.BackendBasicaApplication",
+            "projectName": "backendBasica"
+        },
+        {
+            "type": "java",
             "name": "Iniciar Backend (Perfil Railway)",
             "request": "launch",
             "mainClass": "com.proyectogps.backendMedia.BackendMediaApplication",
