@@ -1,22 +1,19 @@
 package com.proyectogps.backendMedia.Model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 @Entity
-//@Table(name = "material")
+@Table(name = "material")
 public class Material {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_material")
-    private Integer idMaterial;
+    private int idMaterial;
 
     @Column(name = "titulo", nullable = false, length = 200)
     private String titulo;
@@ -31,32 +28,38 @@ public class Material {
     @Column(name = "asignatura", nullable = false, length = 100)
     private String asignatura;
 
+    @Column(name = "descripcion", length = 1000)
+    private String descripcion;
+
+    @Column(name = "autor", length = 100)
+    private String autor;
+
 
     @Column(name = "url_descarga", nullable = false, length = 255)
-    private String url_descarga;
+    private String urlDescarga;
 
     @Column(name = "es_online", nullable = false)
-    private boolean es_online;
+    private boolean esOnline;
 
     @Column(name = "fecha_modificacion", nullable = false)
-    private Date fechaModificacion;
+    private LocalDate fechaModificacion;
 
 
     //RELACIONES CON OTRAS TABLAS
 
-    @OneToMany(mappedBy = "Material")
+    @OneToMany(mappedBy = "material")
     private List<Evaluacion> evaluacion;
 
 
 
     // GETTERS AND SETTERS
 
-    public Integer getIdMaterial() {
+    @JsonProperty("idMaterial")
+    public int getIdMaterial() {
         return idMaterial;
     }
 
-
-    public void setIdMaterial(Integer idMaterial) {
+    public void setIdMaterial(int idMaterial) {
         this.idMaterial = idMaterial;
     }
 
@@ -100,52 +103,57 @@ public class Material {
         this.asignatura = asignatura;
     }
 
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-    public String getUrl_descarga() {
-        return url_descarga;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    @JsonProperty("url_descarga")
+    public String getUrlDescarga() {
+        return urlDescarga;
     }
 
 
-    public void setUrl_descarga(String url_descarga) {
-        this.url_descarga = url_descarga;
+    public void setUrlDescarga(String urlDescarga) {
+        this.urlDescarga = urlDescarga;
     }
 
 
-    public boolean isEs_online() {
-        return es_online;
+    @JsonProperty("esOnline")
+    public boolean isEsOnline() {
+        return esOnline;
     }
 
-
-    public void setEs_online(boolean es_online) {
-        this.es_online = es_online;
+    public void setEsOnline(boolean esOnline) {
+        this.esOnline = esOnline;
     }
 
-
-    public Date getFechaModificacion() {
+    @JsonProperty("fechaCreacion")
+    public LocalDate getFechaModificacion() {
         return fechaModificacion;
     }
 
-
-    public void setFechaModificacion(Date fechaModificacion) {
+    public void setFechaModificacion(LocalDate fechaModificacion) {
         this.fechaModificacion = fechaModificacion;
     }
-
 
     public List<Evaluacion> getEvaluacion() {
         return evaluacion;
     }
 
-
     public void setEvaluacion(List<Evaluacion> evaluacion) {
         this.evaluacion = evaluacion;
     }
-
-
-    
-
-
-
-
-
 }
 
