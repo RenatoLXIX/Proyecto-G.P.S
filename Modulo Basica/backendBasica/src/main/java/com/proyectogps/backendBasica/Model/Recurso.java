@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 //@Table(name = "recurso")
 public class Recurso {
@@ -33,11 +35,9 @@ public class Recurso {
     //Conexciones con otras tablas
 
     @OneToMany(mappedBy = "recurso")
+    @JsonIgnore
        private List<Planificacion> planificacion;
 
-
-    
-    
     //getters and setters
 
     public Integer getIdRecurso() {

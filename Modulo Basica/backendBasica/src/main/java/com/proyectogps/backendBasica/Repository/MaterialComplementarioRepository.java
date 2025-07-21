@@ -2,12 +2,16 @@ package com.proyectogps.backendBasica.Repository;
 
 import com.proyectogps.backendBasica.Model.MaterialComplementario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-@Repository
+import java.util.List;
+
 public interface MaterialComplementarioRepository extends JpaRepository<MaterialComplementario, Integer> {
+    List<MaterialComplementario> findByTipoContainingIgnoreCaseAndNivelContainingIgnoreCaseAndAsignaturaContainingIgnoreCase(
+        String tipo, String nivel, String asignatura);
     
-    // Puedes agregar métodos personalizados aquí si los necesitas, por ejemplo:
-    // List<MaterialComplementario> findByAsignatura(String asignatura);
+    List<MaterialComplementario> findByTipo(String tipo);
+    
+    List<MaterialComplementario> findByNivel(String nivel);
+    
+    List<MaterialComplementario> findByAsignatura(String asignatura);
 }
-

@@ -17,20 +17,24 @@ public class Planificacion {
     @Column(name = "id_planificacion")
     private Integer idPlanificacion;
 
-    @Column(name = "tipo", nullable = false, length = 50)
-    private String tipo;
+    @Column(name = "titulo", nullable = false, length = 50)
+    private String titulo;
+
+     @Column(name = "descripcion", nullable = false, length = 300)
+    private String descripcion;
 
     @Column(name = "nivel", nullable = false, length = 50)
     private String nivel;
 
+    @Column(name = "clasificacionDUA", nullable = false, length = 50)
+    private String clasificacionDUA; // Representación, etc.
+
+    @Column(name = "articulo", nullable = false, length = 50)
+    private String articulo;
+
     @Column(name = "asignatura", nullable = false, length = 100)
     private String asignatura;
 
-    @Column(name = "objetivo", nullable = false, length = 200)
-    private String objetivo;
-
-    @Column(name = "id_recurso", nullable = false)
-    private Integer idRecurso;
 
     //Relaciones
 
@@ -38,8 +42,12 @@ public class Planificacion {
     @JoinColumn(name = "id_recurso", referencedColumnName = "id_recurso")
     private Recurso recurso;
 
-    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "id_material", referencedColumnName = "id_material")
+    private MaterialComplementario materialComplementario;
 
+
+    // Getters y Setters
     public Integer getIdPlanificacion() {
         return idPlanificacion;
     }
@@ -48,12 +56,20 @@ public class Planificacion {
         this.idPlanificacion = idPlanificacion;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getNivel() {
@@ -64,28 +80,28 @@ public class Planificacion {
         this.nivel = nivel;
     }
 
+    public String getClasificacionDUA() {
+        return clasificacionDUA;
+    }
+
+    public void setClasificacionDUA(String clasificacionDUA) {
+        this.clasificacionDUA = clasificacionDUA;
+    }
+
+    public String getArticulo() {
+        return articulo;
+    }
+
+    public void setArticulo(String articulo) {
+        this.articulo = articulo;
+    }
+
     public String getAsignatura() {
         return asignatura;
     }
 
     public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
-    }
-
-    public String getObjetivo() {
-        return objetivo;
-    }
-
-    public void setObjetivo(String objetivo) {
-        this.objetivo = objetivo;
-    }
-
-    public Integer getIdRecurso() {
-        return idRecurso;
-    }
-
-    public void setIdRecurso(Integer idRecurso) {
-        this.idRecurso = idRecurso;
     }
 
     public Recurso getRecurso() {
@@ -96,10 +112,16 @@ public class Planificacion {
         this.recurso = recurso;
     }
 
-    
+    public MaterialComplementario getMaterialComplementario() {
+        return materialComplementario;
+    }
+
+    public void setMaterialComplementario(MaterialComplementario materialComplementario) {
+        this.materialComplementario = materialComplementario;
+    }
+
+    //Getters y Setters
 
     
-
+    
 }
-
-

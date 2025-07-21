@@ -1,10 +1,15 @@
 package com.proyectogps.backendBasica.Model;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 //@Table(name = "materialcomplementario")
@@ -30,9 +35,15 @@ public class MaterialComplementario {
     @Column(name = "asignatura", nullable = false, length = 100)
     private String asignatura;
 
-    @Column(name = "nivel_recomendado", nullable = false, length = 50)
-    private Integer nivel_recomendado;
+    @Column(name = "nivel", nullable = false, length = 50)
+    private String nivel;
 
+
+    //Relaciones
+
+    @OneToMany(mappedBy = "materialComplementario")
+    @JsonIgnore
+       private List<Planificacion> planificacion;
 
 
     // Getters and Setters
@@ -40,55 +51,83 @@ public class MaterialComplementario {
         return idMaterial;
     }
 
+
     public void setIdMaterial(Integer idMaterial) {
         this.idMaterial = idMaterial;
     }
+
 
     public String getTipo() {
         return tipo;
     }
 
+
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
 
     public String getTitulo() {
         return titulo;
     }
 
+
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+
 
     public String getDescripcion() {
         return descripcion;
     }
 
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
 
     public String getUrl_acceso() {
         return url_acceso;
     }
 
+
     public void setUrl_acceso(String url_acceso) {
         this.url_acceso = url_acceso;
     }
+
 
     public String getAsignatura() {
         return asignatura;
     }
 
+
     public void setAsignatura(String asignatura) {
         this.asignatura = asignatura;
     }
 
-    public Integer getNivel_recomendado() {
-        return nivel_recomendado;
+
+    public String getNivel() {
+        return nivel;
     }
 
-    public void setNivel_recomendado(Integer nivel_recomendado) {
-        this.nivel_recomendado = nivel_recomendado;
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
+
+
+    public List<Planificacion> getPlanificacion() {
+        return planificacion;
+    }
+
+
+    public void setPlanificacion(List<Planificacion> planificacion) {
+        this.planificacion = planificacion;
+    }
+
+
+
+    
+    
 }
