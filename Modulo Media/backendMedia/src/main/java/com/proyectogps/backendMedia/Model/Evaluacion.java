@@ -3,12 +3,12 @@ package com.proyectogps.backendMedia.Model;
 import jakarta.persistence.*;
 
 @Entity
-//@Table(name = "evaluacion")
+@Table(name = "evaluacion")
 public class Evaluacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_evaluacion")
-    private Integer idEvaluacion;
+    private int idEvaluacion;
 
     @Column(name = "tipo", nullable = false, length = 50)
     private String tipo;
@@ -20,13 +20,10 @@ public class Evaluacion {
     private String nivel;
 
     @Column(name = "tiempo_minutos", nullable = false, length = 300)
-    private int tiempo_minutos;
+    private int tiempoMinutos;
 
     @Column(name = "tiene_solucionario", nullable = false)
-    private Boolean tiene_solucionario;
-
-    @Column(name = "id_material", nullable = false)
-    private Integer idMaterial;
+    private Boolean tieneSolucionario;
 
     //RELACIONES
 
@@ -36,11 +33,11 @@ public class Evaluacion {
 
 
     //GETTERS Y SETTERS
-    public Integer getIdEvaluacion() {
+    public int getIdEvaluacion() {
         return idEvaluacion;
     }
 
-    public void setIdEvaluacion(Integer idEvaluacion) {
+    public void setIdEvaluacion(int idEvaluacion) {
         this.idEvaluacion = idEvaluacion;
     }
 
@@ -68,28 +65,20 @@ public class Evaluacion {
         this.nivel = nivel;
     }
 
-    public int getTiempo_minutos() {
-        return tiempo_minutos;
+    public int getTiempoMinutos() {
+        return tiempoMinutos;
     }
 
-    public void setTiempo_minutos(int tiempo_minutos) {
-        this.tiempo_minutos = tiempo_minutos;
+    public void setTiempoMinutos(int tiempoMinutos) {
+        this.tiempoMinutos = tiempoMinutos;
     }
 
-    public Boolean getTiene_solucionario() {
-        return tiene_solucionario;
+    public Boolean getTieneSolucionario() {
+        return tieneSolucionario;
     }
 
-    public void setTiene_solucionario(Boolean tiene_solucionario) {
-        this.tiene_solucionario = tiene_solucionario;
-    }
-
-    public Integer getIdMaterial() {
-        return idMaterial;
-    }
-
-    public void setIdMaterial(Integer idMaterial) {
-        this.idMaterial = idMaterial;
+    public void setTieneSolucionario(Boolean tieneSolucionario) {
+        this.tieneSolucionario = tieneSolucionario;
     }
 
     public Material getMaterial() {
@@ -99,7 +88,4 @@ public class Evaluacion {
     public void setMaterial(Material material) {
         this.material = material;
     }
-
-
-    
 }
