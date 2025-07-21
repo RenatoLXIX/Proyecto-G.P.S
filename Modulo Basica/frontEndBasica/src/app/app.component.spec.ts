@@ -12,6 +12,7 @@ describe('AppComponent', () => {
       declarations: [AppComponent]
     }).compileComponents();
   });
+  
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AppComponent);

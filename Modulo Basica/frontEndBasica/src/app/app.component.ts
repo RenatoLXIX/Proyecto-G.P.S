@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
 
+  
+
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
