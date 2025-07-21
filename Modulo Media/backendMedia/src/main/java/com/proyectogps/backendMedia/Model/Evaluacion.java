@@ -1,13 +1,6 @@
 package com.proyectogps.backendMedia.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
+import jakarta.persistence.*;
 
 @Entity
 //@Table(name = "evaluacion")
@@ -38,7 +31,7 @@ public class Evaluacion {
     //RELACIONES
 
     @ManyToOne
-    @JoinColumn(name = "id_material", referencedColumnName = "id_material") // Clave foránea
+    @JoinColumn(name = "id_material", referencedColumnName = "id_material", nullable = false) // Clave foránea
     private Material material;
 
 
