@@ -12,39 +12,53 @@ import jakarta.persistence.ManyToOne;
 @Entity
 //@Table(name = "asistencia")
 public class Asistencia {
-    @Id
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_Asistencia")
+    @Column(name = "id_asistencia")
     private Integer idAsistencia;
+    
+    @Column(name = "fecha", nullable = false)
+    private Date fecha;
 
-    @Column(name = "nombre_alumno", nullable = false, length = 100)
-    private String nombre_alumno;
-
-
-    @Column(name = "tipo", nullable = false, length = 100)
-    private String tipo;
-
-    @Column(name = "fecha_ingreso", nullable = false)
-    private Date fecha_ingreso;
-
-    @Column(name = "curso", nullable = false, length = 200)
-    private String curso;
-
-    @Column(name = "id_usuario", nullable = false)
-    private Integer id_usuario;
-
-    @Column(name = "id_establecimiento", nullable = false)
-    private Integer id_establecimiento;
-
-
-    //RELACIONES
-
-    @ManyToOne
-    @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")
-    private Establecimiento establecimiento;
+    @Column(name = "estado", nullable = false)
+    private Boolean estado;
     
     @ManyToOne
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
-    private Usuario usuario;
+   @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
+   private Usuario usuario;
 
+	public Integer getIdAsistencia() {
+		return idAsistencia;
+	}
+
+	public void setIdAsistencia(Integer idAsistencia) {
+		this.idAsistencia = idAsistencia;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+    
+	
 }

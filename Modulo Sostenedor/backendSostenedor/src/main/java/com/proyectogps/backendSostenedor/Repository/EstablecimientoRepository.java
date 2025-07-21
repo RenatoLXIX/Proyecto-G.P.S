@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EstablecimientoRepository extends JpaRepository<Establecimiento, Integer> {
 
-    // Ejemplo de método personalizado:
-    // List<Establecimiento> findByComuna(String comuna);
 }
